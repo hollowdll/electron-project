@@ -1,0 +1,22 @@
+{
+  "name": "electron-project",
+  "version": "1.0.0",
+  "description": "Hello world!",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hollowdll/electron-project.git"
+  },
+  "author": "hollowdll",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hollowdll/electron-project/issues"
+  },
+  "homepage": "https://github.com/hollowdll/electron-project#readme",
+  "devDependencies": {
+    "electron": "^19.0.8"
+  }
+}
