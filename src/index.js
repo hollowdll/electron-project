@@ -1,13 +1,40 @@
 // Javascript entry point //
 // Main process //
 
-// Get modules to create the app
-const { app, BrowserWindow } = require("electron");
+// Get modules
+const { app, BrowserWindow, webContents } = require("electron");
+const path = require("path");
 
-// Create a window
+// Function for creating a window
 const createWindow = function() {
-    const win = new BrowserWindow({ width: 800, height: 600 });
+    const mainWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js")
+        }
+    });
 
-    win.loadFile("index.html");
+    // Load the window content
+    mainWindow.loadFile(path.join(__dirname, "index.html"));
 }
+
+// Wait for app module's ready event to create a window
+app.whenReady().then(function() {
+    createWindow();
+
+    // (macOS) If no windows are open, then create one
+    app.on("activate", function() {
+        if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    })
+})
+
+// Close the app when all windows are closed (When not on macOS)
+app.on("window-all-closed", function() {
+    if (process.platform !== "darwin") {        // darwin = macOS
+        console.log("Closing all windows...");
+        console.log("Quitting app...");
+        app.quit();
+    }
+})
 
