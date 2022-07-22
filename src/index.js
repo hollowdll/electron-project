@@ -3,7 +3,7 @@
 //------------------------------//
 
 // Get modules
-const { app, BrowserWindow, webContents } = require("electron");
+const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
 // Function for creating a window
@@ -29,6 +29,11 @@ app.whenReady().then(function() {
     app.on("activate", function() {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
     })
+
+    // Do checks if necessary
+    console.log("Node version:", process.versions["node"]);
+    console.log("Chrome version:", process.versions["chrome"]);
+    console.log("Electron version:", process.versions["electron"]);
 })
 
 // Close the app when all windows are closed (When not on macOS)

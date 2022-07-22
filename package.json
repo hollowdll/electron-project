@@ -1,7 +1,7 @@
 {
   "name": "electron-project",
   "version": "1.0.0",
-  "description": "Hello world!",
+  "description": "electron project",
   "main": "src/index.js",
   "scripts": {
     "start": "electron ."
