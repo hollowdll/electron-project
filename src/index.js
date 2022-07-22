@@ -1,5 +1,6 @@
-// Javascript entry point //
-// Main process //
+//------------------------------//
+// Main process of electron app //
+//------------------------------//
 
 // Get modules
 const { app, BrowserWindow, webContents } = require("electron");
@@ -11,6 +12,7 @@ const createWindow = function() {
         width: 800,
         height: 600,
         webPreferences: {
+            // preload script
             preload: path.join(__dirname, "preload.js")
         }
     });
