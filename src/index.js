@@ -3,7 +3,7 @@
 //------------------------------//
 
 // Get modules
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
 // Function for creating a window
@@ -16,6 +16,9 @@ const createWindow = function() {
             preload: path.join(__dirname, "preload.js")
         }
     });
+
+    // Handle messages sent from the renderer process
+    ipcMain.handle("IPC-test", () => `Message received from channel "IPC-test"`);
 
     // Load the window content
     mainWindow.loadFile(path.join(__dirname, "index.html"));
