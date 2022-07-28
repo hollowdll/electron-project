@@ -6,31 +6,36 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
-// Function for creating a window
-const createWindow = function() {
+// Function for creating app windows
+const createWindows = function() {
+    // main window
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
             // preload script
-            preload: path.join(__dirname, "preload.js")
+            preload: path.join(__dirname, "preload.js"),
+            // Enable sandboxing for the renderer. Read: https://www.electronjs.org/docs/latest/tutorial/sandbox
+            sandbox: true,
         }
     });
 
     // Handle messages sent from the renderer process
     ipcMain.handle("IPC-test", () => `Message received from channel "IPC-test"`);
 
-    // Load the window content
+    // Load the window contents
     mainWindow.loadFile(path.join(__dirname, "index.html"));
+
+    
 }
 
 // Wait for app module's ready event to create a window
 app.whenReady().then(function() {
-    createWindow();
+    createWindows();
 
     // (macOS) If no windows are open, then create one
     app.on("activate", function() {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow();
+        if (BrowserWindow.getAllWindows().length === 0) createWindows();
     })
 
     // Do checks if necessary

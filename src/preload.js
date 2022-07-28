@@ -10,7 +10,7 @@
 // https://www.electronjs.org/docs/latest/tutorial/tutorial-preload
 
 
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer, app } = require("electron");
 
 // Expose globals to the renderer process
 contextBridge.exposeInMainWorld("versions", {
