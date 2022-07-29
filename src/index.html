@@ -11,10 +11,27 @@
 
         <!-- defer = execute script after page has loaded -->
         <script defer src="./renderer.js"></script>
-
+        <script defer src="./javascript/timer.js"></script>
     </head>
 
     <body>
+        <div class="timerInfo">
+            <h1>Basic timer</h1>
+            <p>Press Start to start the timer.</p>
+            <p>Press Pause to pause the timer.</p>
+            <p>Press Reset to reset the timer.</p>
+        </div>
+
+        <div class="timer">
+            <p id="timerLabel">00:00:00</p>
+        </div>
+
+        <div class="timerButtons">
+            <button id="startButton">Start</button>
+            <button id="pauseButton">Pause</button>
+            <button id="resetButton">Reset</button>
+        </div>
+
         
     </body>
 </html>

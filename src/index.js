@@ -17,8 +17,12 @@ const createWindows = function() {
             preload: path.join(__dirname, "preload.js"),
             // Enable sandboxing for the renderer. Read: https://www.electronjs.org/docs/latest/tutorial/sandbox
             sandbox: true,
+            
         }
     });
+
+    // Set background color
+    mainWindow.setBackgroundColor("rgb(255, 255, 255)");
 
     // Handle messages sent from the renderer process
     ipcMain.handle("IPC-test", () => `Message received from channel "IPC-test"`);
