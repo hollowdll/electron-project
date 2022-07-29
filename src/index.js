@@ -7,7 +7,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
 // Function for creating app windows
-const createWindows = function() {
+const createWindows = () => {
     // main window
     const mainWindow = new BrowserWindow({
         width: 800,
@@ -30,7 +30,7 @@ const createWindows = function() {
     // Load the window contents
     mainWindow.loadFile(path.join(__dirname, "index.html"));
 
-    
+
 }
 
 // Wait for app module's ready event to create a window
