@@ -7,6 +7,8 @@
 class Timer {
     constructor() {
         // Variables used by the timer
+        this.startTime = 0;
+        this.timeElapsed = 0;
         this.seconds = 0;
         this.minutes = 0;
         this.hours = 0;
@@ -21,7 +23,13 @@ class Timer {
 
     start() {
         if (this.canStart) {
-            console.log("Timer started!");
+            // Change values
+            this.canStart = false;
+            this.canPause = true;
+            this.canReset = true;
+
+            // Set the start time in milliseconds with date object
+            this.startTime = Date.now();
     
             // Get the timer DOM element
             let timerLabel = document.getElementById("timerLabel");
@@ -30,45 +38,79 @@ class Timer {
             if (timerLabel) {
                 // Create time counting function
                 const countTime = () => {
-                    this.seconds++;
-                    console.log(this.seconds);
+                    const timeInMilliseconds = this.getTime();
+                    timerLabel.innerText = timeInMilliseconds;
                 }
-            
+                
                 // Use setInterval to start the timer
-                this.timeCounter = window.setInterval(countTime, 1000);
+                this.timeCounter = window.setInterval(countTime, 100);
+                console.log("Timer started!");
             }
         }
     }
     
     pause() {
         if (this.canPause) {
-            console.log("Timer paused!");
+            this.canPause = false;
+            this.canStart = true;
+
+            // Update elapsed time
+            this.timeElapsed = this.getTime();
+            console.log("Time elapsed: ", this.timeElapsed);
 
             // Use clearInterval to pause the timer
             if (this.timeCounter) {
                 window.clearInterval(this.timeCounter);
-                console.log("Timer was paused!");
+                console.log("Timer paused!");
+            }
+
+            // Get the timer DOM element
+            let timerLabel = document.getElementById("timerLabel");
+
+            // Check if timerLabel exists
+            if (timerLabel) {
+                // Update timer DOM element
+                const timeInMilliseconds = this.timeElapsed;
+                timerLabel.innerText = timeInMilliseconds;
             }
         }
     }
     
     reset() {
         if (this.canReset) {
+            this.CanReset = false;
+            this.canStart = true;
+            this.canPause = false;
+
+            // Reset elapsed time
+            this.timeElapsed = 0;
             console.log("Timer reset!");
+
+            // Use clearInterval to pause the timer
+            if (this.timeCounter) {
+                window.clearInterval(this.timeCounter);
+            }
+
+            // Pause the timer and reset values
+            /*
+            this.seconds = 0;
+            this.minutes = 0;
+            this.hours = 0;
+            */
 
             // Get the timer DOM element
             let timerLabel = document.getElementById("timerLabel");
 
-            // Pause the timer and reset values
-            this.seconds = 0;
-            this.minutes = 0;
-            this.hours = 0;
-
             // Check if timerLabel still exists
             if (timerLabel) {
-
+                // Reset the text to default
+                timerLabel.innerText = "00:00:00.00";
             }
         }
+    }
+
+    getTime() {
+        return this.timeElapsed + Date.now() - this.startTime;
     }
 
     initTimer() {
