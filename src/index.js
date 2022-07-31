@@ -30,7 +30,7 @@ const createWindows = () => {
     // Load the window contents
     mainWindow.loadFile(path.join(__dirname, "index.html"));
 
-
+    
 }
 
 // Wait for app module's ready event to create a window
