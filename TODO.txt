@@ -1,0 +1,15 @@
+--------------------------
+To-do list of this project
+--------------------------
+
+Current version: 1.0.0 (Not released) (No official releases yet)
+
+List of features to be added:
+- Improve UI
+- Add icons for timer buttons
+- Light/Dark mode
+- Edit topbar
+- add more features here
+
+Known bugs:
+- add bugs here
