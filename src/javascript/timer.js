@@ -39,11 +39,11 @@ class Timer {
                 // Create time counting function
                 const countTime = () => {
                     const timeInMilliseconds = this.getTime();
-                    timerLabel.innerText = timeInMilliseconds;
+                    timerLabel.innerText = this.formatTime(timeInMilliseconds);
                 }
                 
                 // Use setInterval to start the timer
-                this.timeCounter = window.setInterval(countTime, 100);
+                this.timeCounter = window.setInterval(countTime, 50);
                 console.log("Timer started!");
             }
         }
@@ -71,14 +71,14 @@ class Timer {
             if (timerLabel) {
                 // Update timer DOM element
                 const timeInMilliseconds = this.timeElapsed;
-                timerLabel.innerText = timeInMilliseconds;
+                timerLabel.innerText = this.formatTime(timeInMilliseconds);
             }
         }
     }
     
     reset() {
         if (this.canReset) {
-            this.CanReset = false;
+            this.canReset = false;
             this.canStart = true;
             this.canPause = false;
 
@@ -91,12 +91,10 @@ class Timer {
                 window.clearInterval(this.timeCounter);
             }
 
-            // Pause the timer and reset values
-            /*
+            // Reset timer values
             this.seconds = 0;
             this.minutes = 0;
             this.hours = 0;
-            */
 
             // Get the timer DOM element
             let timerLabel = document.getElementById("timerLabel");
@@ -111,6 +109,46 @@ class Timer {
 
     getTime() {
         return this.timeElapsed + Date.now() - this.startTime;
+    }
+
+    // Format time before rendering it in DOM
+    formatTime(timeInMilliseconds) {
+        let timeText = "00:00:00.00";
+        this.seconds = timeInMilliseconds / 1000;
+        this.minutes = Math.floor(this.seconds / 60);
+        this.hours = Math.floor(this.minutes / 60);
+
+        // Reset seconds and minutes back to 0 when 60 is reached
+        if (this.seconds >= 60) {
+            this.seconds -= 60 * this.minutes;
+        }
+
+        if (this.minutes >= 60) {
+            this.minutes -= 60 * this.hours;
+        }
+
+        // Used in the formatted text
+        let secondsText = this.seconds.toFixed(2);
+        let minutesText = this.minutes.toFixed(0);
+        let hoursText = this.hours.toFixed(0);
+
+        // Check if 0 needs to be added to the beginning
+        if (this.seconds < 10) {
+            secondsText = `0${secondsText}`;
+        }
+
+        if (this.minutes < 10) {
+            minutesText = `0${minutesText}`;
+        }
+
+        if (this.hours < 10) {
+            hoursText = `0${hoursText}`;
+        }
+
+        // Parse into string format
+        timeText = `${hoursText}:${minutesText}:${secondsText}`;
+
+        return timeText;
     }
 
     initTimer() {
@@ -128,30 +166,4 @@ class Timer {
         })
     }
 }
-
-
-// (Temporary) Disabled implementation //
-// Initialize timer //
-
-/*
-const initTimer = () => {
-    // create a timer object
-    const timer = new Timer();
-
-    // Button events //
-    document.getElementById("startButton").addEventListener("click", () => {
-        timer.start();
-    })
-    
-    document.getElementById("pauseButton").addEventListener("click", () => {
-        timer.pause();
-    })
-    
-    document.getElementById("resetButton").addEventListener("click", () => {
-        timer.reset();
-    })
-}
-
-initTimer();
-*/
 
