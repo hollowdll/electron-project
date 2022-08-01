@@ -2,6 +2,8 @@
 // Timer class for the timer //
 //---------------------------//
 
+// Debug tool on line 151 //
+
 "use strict";
 
 class Timer {
@@ -147,6 +149,9 @@ class Timer {
 
         // Parse into string format
         timeText = `${hoursText}:${minutesText}:${secondsText}`;
+
+        // (Debug tool) Make the timer go faster //
+        // this.timeElapsed += 1000;
 
         return timeText;
     }
