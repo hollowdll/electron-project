@@ -8,7 +8,7 @@ body {
 
 .timerInfo p {
     margin: 1px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #timerLabel {
@@ -53,3 +53,5 @@ body {
 #resetButton:hover {
     background-color: rgb(50, 50, 50);
 }
+
+

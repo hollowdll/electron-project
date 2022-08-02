@@ -2,13 +2,14 @@
 To-do list of this project
 --------------------------
 
-Current version: 1.0.0 (Not released) (No official releases yet)
+Current version: 1.0.0
 
 List of features to be added:
 - Improve UI
 - Add icons for timer buttons
 - Light/Dark mode
 - Edit topbar
+- Version text visible in app
 - add more features here
 
 Known bugs:

@@ -2,14 +2,11 @@
 // Interaction with web contents in renderer process //
 //---------------------------------------------------//
 
-// Test IPC by sending a message to the main process
-const testMessage = async function() {
-    const response = await window.versions.sendMessageToMainProcess();
-    console.log(response);
-}
+// This file is the main javascript file of renderer process //
+// All renderer process programs start here //
 
-testMessage();
 
 // Initialize timer program //
 const timer = new Timer();
+
 
