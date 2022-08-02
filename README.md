@@ -1,4 +1,4 @@
-# electron-project
-My first electron project
+# About this project
+Cross-platform timer desktop application.
 
 (To be updated)
