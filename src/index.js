@@ -24,7 +24,15 @@ const createWindows = () => {
     // Set background color
     mainWindow.setBackgroundColor("rgb(255, 255, 255)");
 
-    // Handle IPC messages sent from the renderer process before loading window contents
+    // Load the window contents
+    mainWindow.loadFile(path.join(__dirname, "index.html"));
+
+    return { mainWindow };
+}
+
+// Function for handling IPC messages from the renderer process
+const handleIpcMessages = () => {
+    // Dark mode
     ipcMain.handle("dark-mode:toggle", () => {
         if (nativeTheme.shouldUseDarkColors) {
             nativeTheme.themeSource = 'light';
@@ -38,19 +46,16 @@ const createWindows = () => {
         nativeTheme.themeSource = "system";
     });
 
-    // Load the window contents
-    mainWindow.loadFile(path.join(__dirname, "index.html"));
+
 }
 
 // Function to be executed after app's ready event
 const initApp = () => {
-    // Register global keyboard shortcuts
-    globalShortcut.register("Alt+K", () => {
-        console.log("Global keyboard shortcut!");
-    })
+    // Handle IPC messages from the renderer process
+    handleIpcMessages();
 
     // Create app windows
-    createWindows();
+    const appWindows = createWindows();
 
     // (macOS) If no windows are open, then create one
     app.on("activate", () => {
@@ -64,6 +69,12 @@ const initApp = () => {
             console.log("Quitting app...");
             app.quit();
         }
+    })
+
+    // Register global keyboard shortcuts
+    globalShortcut.register("Alt+K", () => {
+        console.log("Global keyboard shortcut!");
+        appWindows.mainWindow.webContents.send("log-message", "Message from the main process!");
     })
 
     // Do checks if necessary
