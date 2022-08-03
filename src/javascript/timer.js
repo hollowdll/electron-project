@@ -15,20 +15,17 @@ class Timer {
         this.minutes = 0;
         this.hours = 0;
         this.timeCounter = undefined;
-        this.canPause = false;
-        this.canStart = true;
         this.canReset = false;
+        this.isRunning = false;
 
         // Initialize the timer program
         this.initTimer();
     }
 
     start() {
-        if (this.canStart) {
-            // Change values
-            this.canStart = false;
-            this.canPause = true;
+        if (!this.isRunning) {
             this.canReset = true;
+            this.isRunning = true;
 
             // Set the start time in milliseconds with date object
             this.startTime = Date.now();
@@ -52,9 +49,8 @@ class Timer {
     }
     
     pause() {
-        if (this.canPause) {
-            this.canPause = false;
-            this.canStart = true;
+        if (this.isRunning) {
+            this.isRunning = false;
 
             // Update elapsed time
             this.timeElapsed = this.getTime();
@@ -81,8 +77,7 @@ class Timer {
     reset() {
         if (this.canReset) {
             this.canReset = false;
-            this.canStart = true;
-            this.canPause = false;
+            this.isRunning = false;
 
             // Reset elapsed time
             this.timeElapsed = 0;

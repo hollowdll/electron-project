@@ -17,17 +17,47 @@ const createWindows = () => {
             preload: path.join(__dirname, "preload.js"),
             // Enable sandboxing for the renderer. Read: https://www.electronjs.org/docs/latest/tutorial/sandbox
             sandbox: true,
-            
         }
     });
+
+    // window for split editor
+    const splitEditorWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            sandbox: true,
+        }
+    });
+
+    // window for layout editor
+    const layoutEditorWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            sandbox: true,
+        }
+    });
+
+    // Set window titles
+    mainWindow.setTitle("Timer Project");
+    splitEditorWindow.setTitle("Split Editor");
+    layoutEditorWindow.setTitle("Layout Editor");
 
     // Set background color
     mainWindow.setBackgroundColor("rgb(255, 255, 255)");
 
     // Load the window contents
     mainWindow.loadFile(path.join(__dirname, "index.html"));
+    splitEditorWindow.loadFile(path.join(__dirname, "html", "split-editor.html"));
+    layoutEditorWindow.loadFile(path.join(__dirname, "html", "layout-editor.html"));
 
-    return { mainWindow };
+    // (Development mode) open DevTools
+    mainWindow.webContents.openDevTools(); 
+
+    // return the created windows
+    return { mainWindow, splitEditorWindow, layoutEditorWindow };
 }
 
 // Function for handling IPC messages from the renderer process
@@ -73,8 +103,13 @@ const initApp = () => {
 
     // Register global keyboard shortcuts
     globalShortcut.register("Alt+K", () => {
-        console.log("Global keyboard shortcut!");
-        appWindows.mainWindow.webContents.send("log-message", "Message from the main process!");
+        // Start/pause timer
+        appWindows.mainWindow.webContents.send("timer-shortcut", "start/pause");
+    })
+
+    globalShortcut.register("Alt+R", () => {
+        // Reset timer
+        appWindows.mainWindow.webContents.send("timer-shortcut", "reset");
     })
 
     // Do checks if necessary

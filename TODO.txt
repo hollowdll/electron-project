@@ -7,7 +7,7 @@ Current version: 1.0.0
 List of features to be added:
 - Improve UI
 - Add icons for timer buttons
-- Light/Dark mode
+- Can reset timer only when it is paused (prevents accidental resets)
 - Edit topbar
 - Version text visible in app
 - add more features here

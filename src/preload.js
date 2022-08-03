@@ -18,8 +18,8 @@ contextBridge.exposeInMainWorld("darkMode", {
     system: () => ipcRenderer.invoke("dark-mode:system"),
 })
 
-// Expose keyboard shortcut API
+// Expose keyboard shortcut API to the renderer process
 contextBridge.exposeInMainWorld("keyboardShortcuts", {
-    handleLogs: (callback) => ipcRenderer.on("log-message", callback),
-    
+    // These are event listeners in the renderer process
+    onTimerShortcut: (callback) => ipcRenderer.on("timer-shortcut", callback),
 })
