@@ -1,0 +1,46 @@
+body {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+}
+
+#timer-label {
+    font-size: 30px;
+}
+
+.timer-buttons button {
+    margin: 5px;
+    margin-top: 0px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+}
+
+/* Timer buttons */
+
+#start-button {
+    background-color: green;
+}
+
+#start-button:hover {
+    background-color: rgb(0, 100, 0);
+}
+
+#pause-button {
+    background-color: rgb(255, 0, 0);
+}
+
+#pause-button:hover {
+    background-color: rgb(200, 0, 0);
+}
+
+#reset-button {
+    background-color: rgb(80, 80, 80);
+}
+
+#reset-button:hover {
+    background-color: rgb(50, 50, 50);
+}

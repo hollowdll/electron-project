@@ -30,6 +30,7 @@ const createWindows = () => {
         }
     });
 
+    /*
     // window for split editor
     const splitEditorWindow = new BrowserWindow({
         width: 800,
@@ -49,27 +50,34 @@ const createWindows = () => {
             sandbox: true,
         }
     });
+    */
 
     // Set window titles
     mainWindow.setTitle("Timer Project");
     mainWindowReal.setTitle("Timer Project");
-    splitEditorWindow.setTitle("Split Editor");
-    layoutEditorWindow.setTitle("Layout Editor");
+    // splitEditorWindow.setTitle("Split Editor");
+    //layoutEditorWindow.setTitle("Layout Editor");
+
+    // Edit topbar menus
+    
 
     // Set background color
     mainWindow.setBackgroundColor("rgb(255, 255, 255)");
 
+    // Set window properties
+    
+
     // Load the window contents
     mainWindow.loadFile(path.join(__dirname, "index.html"));
     mainWindowReal.loadFile(path.join(__dirname, "html", "main-window.html"));
-    splitEditorWindow.loadFile(path.join(__dirname, "html", "split-editor.html"));
-    layoutEditorWindow.loadFile(path.join(__dirname, "html", "layout-editor.html"));
+    // splitEditorWindow.loadFile(path.join(__dirname, "html", "split-editor.html"));
+    // layoutEditorWindow.loadFile(path.join(__dirname, "html", "layout-editor.html"));
 
     // (Development mode) open DevTools
-    mainWindow.webContents.openDevTools(); 
+    mainWindowReal.webContents.openDevTools(); 
 
     // return the created windows
-    return { mainWindow, mainWindowReal, splitEditorWindow, layoutEditorWindow };
+    return { mainWindow, mainWindowReal };
 }
 
 // Function for handling IPC messages from the renderer process
