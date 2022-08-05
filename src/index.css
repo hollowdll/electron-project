@@ -1,57 +1,41 @@
-body {
+.app-description {
     display: block;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
     text-align: center;
 }
 
-.timerInfo p {
-    margin: 1px;
+.app-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.app-menu button {
+    width: 300px;
+    padding: 5px;
+    margin: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    /* background-color: rgb(124, 163, 222); */
+    border-radius: 10px;
+    border-width: 1px;
+    transition-duration: 0.3s;
+}
+
+.app-menu button:hover {
+    background-color: rgb(200,200,200);
+    
+}
+
+#version {
+    position: absolute;
+    float: left;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
     font-size: 20px;
 }
-
-#timerLabel {
-    font-size: 30px;
-}
-
-.timerButtons button {
-    margin: 5px;
-    margin-top: 0px;
-    font-size: 20px;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-}
-
-/* Timer buttons */
-
-#startButton {
-    background-color: green;
-}
-
-#startButton:hover {
-    background-color: rgb(0, 100, 0);
-}
-
-/* Pause */
-
-#pauseButton {
-    background-color: rgb(255, 0, 0);
-}
-
-#pauseButton:hover {
-    background-color: rgb(200, 0, 0);
-}
-
-/* Reset */
-
-#resetButton {
-    background-color: rgb(80, 80, 80);
-}
-
-#resetButton:hover {
-    background-color: rgb(50, 50, 50);
-}
-
-

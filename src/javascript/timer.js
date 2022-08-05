@@ -2,7 +2,7 @@
 // Timer class for the timer //
 //---------------------------//
 
-// Debug tool on line 151 //
+// Debug tool on line 148 //
 
 "use strict";
 
@@ -31,7 +31,7 @@ class Timer {
             this.startTime = Date.now();
     
             // Get the timer DOM element
-            let timerLabel = document.getElementById("timerLabel");
+            let timerLabel = document.getElementById("timer-label");
 
             // Check if timerLabel exists
             if (timerLabel) {
@@ -63,7 +63,7 @@ class Timer {
             }
 
             // Get the timer DOM element
-            let timerLabel = document.getElementById("timerLabel");
+            let timerLabel = document.getElementById("timer-label");
 
             // Check if timerLabel exists
             if (timerLabel) {
@@ -94,7 +94,7 @@ class Timer {
             this.hours = 0;
 
             // Get the timer DOM element
-            let timerLabel = document.getElementById("timerLabel");
+            let timerLabel = document.getElementById("timer-label");
 
             // Check if timerLabel still exists
             if (timerLabel) {
@@ -153,17 +153,19 @@ class Timer {
 
     initTimer() {
         // DOM button events //
-        document.getElementById("startButton").addEventListener("click", () => {
+        document.getElementById("start-button").addEventListener("click", () => {
             this.start();
         })
         
-        document.getElementById("pauseButton").addEventListener("click", () => {
+        document.getElementById("pause-button").addEventListener("click", () => {
             this.pause();
         })
         
-        document.getElementById("resetButton").addEventListener("click", () => {
+        document.getElementById("reset-button").addEventListener("click", () => {
             this.reset();
         })
     }
 }
 
+// Initialize timer program //
+const timer = new Timer();

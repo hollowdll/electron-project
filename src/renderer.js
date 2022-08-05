@@ -2,12 +2,7 @@
 // Interaction with web contents in renderer process //
 //---------------------------------------------------//
 
-// This file is the main javascript file of renderer process //
-// All renderer process programs start here //
-
-
-// Initialize timer program //
-const timer = new Timer();
+// This file is the main javascript file of the renderer process //
 
 
 // Handle IPC messages from the main process //

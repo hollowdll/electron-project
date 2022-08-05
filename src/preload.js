@@ -23,3 +23,9 @@ contextBridge.exposeInMainWorld("keyboardShortcuts", {
     // These are event listeners in the renderer process
     onTimerShortcut: (callback) => ipcRenderer.on("timer-shortcut", callback),
 })
+
+// Main window API
+contextBridge.exposeInMainWorld("mainWindow", {
+    createNewWindow: (message) => ipcRenderer.invoke("main-window-buttons", message),
+
+})
