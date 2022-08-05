@@ -42,7 +42,7 @@ class Timer {
                 }
                 
                 // Use setInterval to start the timer
-                this.timeCounter = window.setInterval(countTime, 50);
+                this.timeCounter = window.setInterval(countTime, 25);
                 console.log("Timer started!");
             }
         }
