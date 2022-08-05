@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+}
+
+.top-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+    width: 100%;
+}
+
+.top-bar button {
+    display: block;
+    float: left;
+    padding: 3px;
+    margin: 3px;
+    font-size: 16px;
+    border-width: 1px;
+    transition-duration: 0.3s;
+}
+
+.top-bar button:hover {
+    background-color: rgb(180,180,180);
+
+}
