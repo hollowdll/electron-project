@@ -130,18 +130,18 @@ class Timer {
         let hoursText = this.hours.toFixed(0);
 
         // Check if 0 needs to be added to the beginning
-        if (this.seconds < 10) {
+        if (parseFloat(secondsText) < 10) {
             secondsText = `0${secondsText}`;
         }
 
-        if (this.minutes < 10) {
+        if (parseFloat(minutesText) < 10) {
             minutesText = `0${minutesText}`;
         }
 
-        if (this.hours < 10) {
+        if (parseFloat(hoursText) < 10) {
             hoursText = `0${hoursText}`;
         }
-
+        
         // Parse into string format
         timeText = `${hoursText}:${minutesText}:${secondsText}`;
 
