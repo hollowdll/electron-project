@@ -54,7 +54,7 @@ const createMainWindow = () => {
 const createTimerWindow = () => {
     const createdWindow = new BrowserWindow({
         width: 450,
-        height: 300,
+        height: 250,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,

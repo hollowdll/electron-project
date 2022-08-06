@@ -1,26 +1,75 @@
-/*
-body {
-    margin: 0;
+
+
+/* Splits */
+
+.splits {
+    text-align: center;
+    
+}
+
+.splits button {
+    margin: 3px;
+    width: 100px;
 }
 
 .top-bar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    display: block;
+    text-align: center;
 }
 
 .top-bar button {
-    display: block;
-    float: left;
-    padding: 3px;
-    margin: 3px;
+    padding: 5px;
     font-size: 16px;
     border-width: 1px;
-    
+    width: 275px;
 }
 
 .top-bar button:hover {
     background-color: rgb(180,180,180);
 
 }
-*/
+
+.list-of-splits {
+    background-color: rgb(220,220,220);
+    width: 75%;
+    height: 200px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 15px;
+}
+
+.ok-and-cancel {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    margin: 10px;
+}
+
+.ok-and-cancel button {
+    margin: 3px;
+    width: 70px;
+}
+
+
+
+/* Customize */
+
+.customize {
+    display: none;
+}
+
+.customize label {
+    display: block;
+    width: 180px;
+    float: left;
+}
+
+.customize-left {
+    position: absolute;
+    left: 30px;
+}
+
+.customize-right {
+    position: absolute;
+    right: 30px;
+}

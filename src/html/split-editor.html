@@ -9,27 +9,66 @@
         <title>Split Editor</title>
         <link rel="stylesheet" href="../css/split-editor.css">
         
+        <script defer src="../javascript/split-editor.js"></script>
         
     </head>
 
     <body>
-        <ul class="top-bar">
-            <li><button id="splits-button">Splits</button></li>
-            <li><button id="customize-button">Customize</button></li>
-        </ul>
+        <div class="top-bar">
+            <button id="splits-button">Splits</button>
+            <button id="customize-button">Customize</button>
+        </div>
 
         <div class="splits">
-            <p id="activity-name">Activity Name:</p>
-            <p id="category-name">Category Name:</p>
-            <p id="list-of-splits">List of Splits:</p>
+            <form id="activity">
+                <p>Activity Name: <input id="activity-name" type="text" size="30"></p>
+            </form>
+            <form id="category">
+                <p>Category Name: <input id="category-name" type="text" size="30"></p>
+            </form>
+
             <button id="new-split">New Split</button>
             <button id="remove-split">Remove Split</button>
             <button id="move-split">Move Split</button>
 
+            <div class="list-of-splits">
+                
+            </div>
         </div>
 
         <div class="customize">
-            <p id="timer-color">Timer Color:</p>
+            <div class="customize-left">
+                <form>
+                    <p><label>Activity Name Color: </label><input id="activity-name-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Category Name Color: </label><input id="category-name-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Split Text Color: </label><input id="split-text-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Split Time Color: </label><input id="split-time-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Split Indicator Color: </label><input id="split-indicator-color" type="color"></p>
+                </form>
+            </div>
+
+            <div class="customize-right">
+                <form>
+                    <p><label>Split Time Save Color: </label><input id="split-time-save-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Split Time Lost Color: </label><input id="split-time-lost-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Timer Color: </label><input id="timer-color" type="color"></p>
+                </form>
+                <form>
+                    <p><label>Personal Best Time Color: </label><input id="personal-best-time-color" type="color"></p>
+                </form>
+            </div>
         </div>
 
         <div class="ok-and-cancel">
