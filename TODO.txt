@@ -11,8 +11,11 @@ List of features to be added:
 - Edit topbar
 - Version text visible in app
 - test1
+<<<<<<< HEAD
 - test2
 - test3
+=======
+>>>>>>> e342879798320e2a7ae3fde8e5e739650b56fdd0
 
 Known bugs:
 - add bugs here
