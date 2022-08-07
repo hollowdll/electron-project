@@ -10,6 +10,7 @@ List of features to be added:
 - Can reset timer only when it is paused (prevents accidental resets)
 - Edit topbar
 - Version text visible in app
+- test2
 
 Known bugs:
 - add bugs here
