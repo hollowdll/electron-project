@@ -11,7 +11,6 @@ List of features to be added:
 - Edit topbar
 - Version text visible in app
 - test1
-- test2
 
 Known bugs:
 - add bugs here
