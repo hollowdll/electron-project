@@ -12,6 +12,7 @@ List of features to be added:
 - Version text visible in app
 - test1
 - test2
+- test3
 
 Known bugs:
 - add bugs here
