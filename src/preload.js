@@ -12,12 +12,20 @@
 
 const { contextBridge, ipcRenderer } = require("electron");
 
-// Expose globals to the renderer process
-contextBridge.exposeInMainWorld("versions", {
-    node: () => process.versions.node,
-    chrome: () => process.versions.chrome,
-    electron: () => process.versions.electron,
-    sendMessageToMainProcess: () => ipcRenderer.invoke("IPC-test"),
-    // it is possible to expose variables too
+// Expose dark mode API to renderer's window object
+contextBridge.exposeInMainWorld("darkMode", {
+    toggle: () => ipcRenderer.invoke("dark-mode:toggle"),
+    system: () => ipcRenderer.invoke("dark-mode:system"),
 })
 
+// Expose keyboard shortcut API to the renderer process
+contextBridge.exposeInMainWorld("keyboardShortcuts", {
+    // These are event listeners in the renderer process
+    onTimerShortcut: (callback) => ipcRenderer.on("timer-shortcut", callback),
+})
+
+// Main window API
+contextBridge.exposeInMainWorld("mainWindow", {
+    createNewWindow: (message) => ipcRenderer.invoke("main-window-buttons", message),
+
+})
