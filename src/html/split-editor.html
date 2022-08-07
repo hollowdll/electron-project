@@ -21,15 +21,19 @@
 
         <div class="splits">
             <form id="activity">
-                <p>Activity Name: <input id="activity-name" type="text" size="30"></p>
+                <p><label>Activity Name: </label><input id="activity-name" type="text" size="30"></p>
             </form>
             <form id="category">
-                <p>Category Name: <input id="category-name" type="text" size="30"></p>
+                <p><label>Category Name: </label><input id="category-name" type="text" size="30"></p>
+            </form>
+            <form id="split-form">
+                <p><label>Split Name: </label><input id="split-name" type="text" placeholder="30 character limit" size="30"></p>
             </form>
 
-            <button id="new-split">New Split</button>
-            <button id="remove-split">Remove Split</button>
-            <button id="move-split">Move Split</button>
+            <button id="add-split">Add Split</button>
+            <button id="remove-split" disabled>Remove Split</button>
+            <button id="rename-split" disabled>Rename Split</button>
+            <button id="move-split" disabled>Move Split</button>
 
             <div class="list-of-splits">
                 
