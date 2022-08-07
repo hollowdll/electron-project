@@ -2,6 +2,29 @@
 // Split Editor window events and functions //
 //------------------------------------------//
 
+// Track data of the window //
+let splitEditorWindowData = {
+    currentUIView: "splits",
+
+}
+
+// Make splits button's color active when window is opened
+document.addEventListener("DOMContentLoaded", () => {
+    
+})
+
+
+// Top bar buttons //
+document.getElementById("splits-button").addEventListener("click", () => {
+    document.querySelector(".customize").style.display = "none";
+    document.querySelector(".splits").style.display = "block";
+})
+
+document.getElementById("customize-button").addEventListener("click", () => {
+    document.querySelector(".splits").style.display = "none";
+    document.querySelector(".customize").style.display = "block";
+})
+
 
 //-------------//
 // Splits view //

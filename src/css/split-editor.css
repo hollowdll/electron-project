@@ -1,16 +1,4 @@
-
-
-/* Splits */
-
-.splits {
-    text-align: center;
-    
-}
-
-.splits button {
-    margin: 3px;
-    width: 100px;
-}
+/* Top bar */
 
 .top-bar {
     display: block;
@@ -26,7 +14,20 @@
 
 .top-bar button:hover {
     background-color: rgb(180,180,180);
+}
 
+
+
+/* Splits */
+
+.splits {
+    text-align: center;
+    
+}
+
+.splits button {
+    margin: 3px;
+    width: 100px;
 }
 
 .list-of-splits {
@@ -73,3 +74,4 @@
     position: absolute;
     right: 30px;
 }
+
