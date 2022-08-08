@@ -67,8 +67,20 @@ const createTimerWindow = () => {
     return createdWindow;
 }
 
-const createTimerAndSplitsWindow = () => {
+const createTimerAndSplitsWindow = (activityName) => {
+    const createdWindow = new BrowserWindow({
+        width: 300,
+        height: 500,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            sandbox: true,
+        }
+    });
 
+    createdWindow.setTitle(activityName);
+    createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
+
+    return createdWindow;
 }
 
 const createSavefileOpenerWindow = () => {
@@ -115,8 +127,8 @@ const handleIpcMessages = () => {
         nativeTheme.themeSource = "system";
     });
 
-    // Main window buttons for creating windows
-    ipcMain.handle("main-window-buttons", (event, message) => {
+    // Create new windows
+    ipcMain.handle("create-new-window", (event, message, data) => {
         let createdWindow = null;
         let returnMessage = "Nothing returned";
 
@@ -126,10 +138,15 @@ const handleIpcMessages = () => {
             appWindowData.appWindows["timer"] = createdWindow;
             returnMessage = "New timer";
         }
-        else if (message === "new-timer-and-splits") {
+        else if (message === "new-split-editor") {
             createdWindow = createSplitEditorWindow();
             returnMessage = "New split editor";
         }
+        else if (message === "new-timer-and-splits") {
+            createdWindow = createTimerAndSplitsWindow(data);
+            returnMessage = "New timer and splits";
+        }
+
         
         if (createdWindow) {
             // do something

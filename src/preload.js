@@ -24,8 +24,9 @@ contextBridge.exposeInMainWorld("keyboardShortcuts", {
     onTimerShortcut: (callback) => ipcRenderer.on("timer-shortcut", callback),
 })
 
-// Main window API
-contextBridge.exposeInMainWorld("mainWindow", {
-    createNewWindow: (message) => ipcRenderer.invoke("main-window-buttons", message),
+// Window creating API
+contextBridge.exposeInMainWorld("windowCreator", {
+    createNewWindow: (message, data) => ipcRenderer.invoke("create-new-window", message, data),
 
 })
+

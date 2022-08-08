@@ -73,7 +73,7 @@ const addSplit = () => {
 
     // Increase splitCount by 1
     splitEditorWindowData.splitCount++;
-    createdSplit.innerText = `${splitEditorWindowData.splitCount}. ${createdSplit.innerText}`;
+    // createdSplit.innerText = `${splitEditorWindowData.splitCount}. ${createdSplit.innerText}`;
 
     // when a split is selected
     createdSplit.addEventListener("click", () => {
@@ -227,8 +227,16 @@ document.getElementById("select-all").addEventListener("click", selectAllSplits)
 //-----------------------//
 
 document.getElementById("ok-button").addEventListener("click", () => {
-    // Create new timer and splits window
+    // Read window data
+    let activityName = document.getElementById("activity-name").value;
+    if (activityName === "") activityName = "Untitled";
 
+    // Create new timer and splits window
+    window.windowCreator.createNewWindow("new-timer-and-splits", activityName);
+
+
+
+    // window.close();
 })
 
 document.getElementById("cancel-button").addEventListener("click", () => {
