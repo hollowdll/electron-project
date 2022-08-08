@@ -10,7 +10,8 @@ let splitEditorWindowData = {
     splitColors: {
         selected: "rgb(160,160,160)",
         notSelected: "rgb(240,240,240)",
-    }
+    },
+    splits: [],
 
 }
 
@@ -64,6 +65,12 @@ const addSplit = () => {
     splitHolder.appendChild(createdSplit);
     document.querySelector(".list-of-splits").appendChild(splitHolder);
 
+    // Add an order value to the element as an array index
+    createdSplit.value = splitEditorWindowData.splitCount;
+
+    // Push the element to splits array
+    splitEditorWindowData.splits.push(createdSplit);
+
     // Increase splitCount by 1
     splitEditorWindowData.splitCount++;
     createdSplit.innerText = `${splitEditorWindowData.splitCount}. ${createdSplit.innerText}`;
@@ -83,8 +90,12 @@ const addSplit = () => {
 }
 
 const removeSplit = () => {
-    // Remove DOM split element
     if (splitEditorWindowData.selectedSplit) {
+        // Remove from splits array
+        const orderIndex = splitEditorWindowData.selectedSplit.value;
+        splitEditorWindowData.splits.splice(orderIndex, 1);
+
+        // Remove from the window
         splitEditorWindowData.selectedSplit.remove();
         splitEditorWindowData.selectedSplit = null;
         splitEditorWindowData.splitCount--;
@@ -127,17 +138,25 @@ const deselectSplit = () => {
 
 const moveSplitUp = () => {
     // Move DOM split element up
+    if (splitEditorWindowData.selectedSplit) {
+        const splitElem = splitEditorWindowData.selectedSplit;
+        const selectedSplitText = splitElem.innerText;
+        
 
+    }
 }
 
 const moveSplitDown = () => {
     // Move DOM split element down
-
+    if (splitEditorWindowData.selectedSplit) {
+        const selectedSplitText = splitEditorWindowData.selectedSplit.innerText;
+        
+    }
 }
 
 const selectAllSplits = () => {
     // Select all DOM split elements
-
+    
 }
 
 
