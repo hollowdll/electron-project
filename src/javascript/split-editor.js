@@ -41,6 +41,15 @@ const preventWindowReload = (event) => {
     event.preventDefault();
 }
 
+// Function for disabling / enabling split modifier buttons
+const disableSplitModifierButtons = (result) => {
+    document.getElementById("remove-split").disabled = result;
+    document.getElementById("rename-split").disabled = result;
+    document.getElementById("deselect-split").disabled = result;
+    document.getElementById("move-up").disabled = result;
+    document.getElementById("move-down").disabled = result;
+}
+
 // Function for creating a new split DOM element
 const addSplit = () => {
     // Create a new split element
@@ -69,9 +78,7 @@ const addSplit = () => {
         createdSplit.style["background-color"] = splitEditorWindowData.splitColors.selected;
 
         // Enable disabled buttons
-        document.getElementById("remove-split").disabled = false;
-        document.getElementById("rename-split").disabled = false;
-        document.getElementById("move-split").disabled = false;
+        disableSplitModifierButtons(false);
     });
 }
 
@@ -83,9 +90,7 @@ const removeSplit = () => {
         splitEditorWindowData.splitCount--;
 
         // Disable enabled buttons
-        document.getElementById("remove-split").disabled = true;
-        document.getElementById("rename-split").disabled = true;
-        document.getElementById("move-split").disabled = true;
+        disableSplitModifierButtons(true);
     }
 }
 
@@ -98,18 +103,40 @@ const renameSplit = () => {
             return
         } else {
             splitEditorWindowData.selectedSplit.innerText = splitName;
+
+            // Deselect split
             splitEditorWindowData.selectedSplit.style["background-color"] = splitEditorWindowData.splitColors.notSelected;
+            splitEditorWindowData.selectedSplit = null;
 
             // Disable enabled buttons
-            document.getElementById("remove-split").disabled = true;
-            document.getElementById("rename-split").disabled = true;
-            document.getElementById("move-split").disabled = true;
+            disableSplitModifierButtons(true);
         }
     }
 }
 
-const moveSplit = () => {
-    // Move DOM split element
+const deselectSplit = () => {
+    // Deselect DOM split element
+    if (splitEditorWindowData.selectedSplit) {
+        splitEditorWindowData.selectedSplit.style["background-color"] = splitEditorWindowData.splitColors.notSelected;
+        splitEditorWindowData.selectedSplit = null;
+
+        // Disable enabled buttons
+        disableSplitModifierButtons(true);
+    }
+}
+
+const moveSplitUp = () => {
+    // Move DOM split element up
+
+}
+
+const moveSplitDown = () => {
+    // Move DOM split element down
+
+}
+
+const selectAllSplits = () => {
+    // Select all DOM split elements
 
 }
 
@@ -134,8 +161,17 @@ document.getElementById("remove-split").addEventListener("click", removeSplit)
 // Rename split
 document.getElementById("rename-split").addEventListener("click", renameSplit)
 
-// Move split
-document.getElementById("move-split").addEventListener("click", moveSplit)
+// Deselect split
+document.getElementById("deselect-split").addEventListener("click", deselectSplit)
+
+// Move split up
+document.getElementById("move-up").addEventListener("click", moveSplitUp)
+
+// Move split down
+document.getElementById("move-down").addEventListener("click", moveSplitDown)
+
+// Select all splits
+document.getElementById("select-all").addEventListener("click", selectAllSplits)
 
 
 
