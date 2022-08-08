@@ -47,10 +47,7 @@
     width: 95%;
     padding: 3px;
     border-width: 1px;
-}
-
-.list-of-splits button:hover {
-    background-color: rgb(200,200,200);
+    background-color: rgb(240,240,240);
 }
 
 .ok-and-cancel {
