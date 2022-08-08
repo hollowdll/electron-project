@@ -92,9 +92,9 @@ const addSplit = () => {
 const removeSplit = () => {
     if (splitEditorWindowData.selectedSplit) {
         // Remove from splits array
-        const orderIndex = splitEditorWindowData.selectedSplit.value;
+        const orderIndex = parseInt(splitEditorWindowData.selectedSplit.value);
         splitEditorWindowData.splits.splice(orderIndex, 1);
-
+        
         // Remove from the window
         splitEditorWindowData.selectedSplit.remove();
         splitEditorWindowData.selectedSplit = null;
@@ -138,12 +138,31 @@ const deselectSplit = () => {
 
 const moveSplitUp = () => {
     // Move DOM split element up
-    if (splitEditorWindowData.selectedSplit) {
+    /*
+    if (splitEditorWindowData.selectedSplit && splitEditorWindowData.splitCount > 1) {
         const splitElem = splitEditorWindowData.selectedSplit;
+        const orderIndex = parseInt(splitElem.value);
         const selectedSplitText = splitElem.innerText;
-        
 
+        // If split is not the first split
+        if (orderIndex > 0) {
+            const previousSplit = splitEditorWindowData.splits[orderIndex - 1];
+
+            // Swap splits in split array
+            splitEditorWindowData.splits.splice((orderIndex - 1), 2, splitElem, previousSplit);
+            console.log(splitEditorWindowData.splits);
+
+            // Swap element texts
+            splitElem.innerText = previousSplit.innerText;
+            previousSplit.innerText = selectedSplitText;
+
+            // Change selected split to the new one
+            splitEditorWindowData.selectedSplit = previousSplit;
+            splitEditorWindowData.selectedSplit.style["background-color"] = splitEditorWindowData.splitColors.selected;
+            splitElem.style["background-color"] = splitEditorWindowData.splitColors.notSelected;
+        }
     }
+    */
 }
 
 const moveSplitDown = () => {
