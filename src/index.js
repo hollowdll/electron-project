@@ -70,7 +70,7 @@ const createTimerWindow = () => {
 const createTimerAndSplitsWindow = (activityName) => {
     const createdWindow = new BrowserWindow({
         width: 400,
-        height: 550,
+        height: 600,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,

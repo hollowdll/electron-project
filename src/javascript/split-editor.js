@@ -94,6 +94,7 @@ const removeSplit = () => {
         // Remove from splits array
         const orderIndex = parseInt(splitEditorWindowData.selectedSplit.value);
         splitEditorWindowData.splits.splice(orderIndex, 1);
+        console.log(splitEditorWindowData.splits[1].innerText);
         
         // Remove from the window
         splitEditorWindowData.selectedSplit.remove();
@@ -230,9 +231,25 @@ document.getElementById("ok-button").addEventListener("click", () => {
     // Read window data
     let activityName = document.getElementById("activity-name").value;
     if (activityName === "") activityName = "Untitled";
+    let categoryName = document.getElementById("category-name").value;
+    let splitNames = [];
+
+    // Get the names of each split
+    for (let i = 0; i < splitEditorWindowData.splits.length; i++) {
+        splitNames[i] = splitEditorWindowData.splits[i].innerText;
+    }
+
+    console.log(splitNames);
+
+    // Create an object of data to pass to the main process
+    let windowDataToPass = {
+        activity: activityName,
+        category: categoryName,
+        splits: splitNames
+    };
 
     // Create new timer and splits window
-    window.windowCreator.createNewWindow("new-timer-and-splits", activityName);
+    window.windowCreator.createNewWindow("new-timer-and-splits", windowDataToPass);
 
 
 
