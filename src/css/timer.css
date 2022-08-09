@@ -1,12 +1,10 @@
 #timer-label {
-    display: block;
     width: 100%;
     text-align: center;
     font-size: 34px;
     font-weight: bold;
     font-family: sans-serif;
     color: rgb(71, 156, 185);
-   /* color: orange; */
     /* Text border */
     text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
     
@@ -14,7 +12,6 @@
 }
 
 .timer-buttons {
-    display: block;
     text-align: center;
 }
 

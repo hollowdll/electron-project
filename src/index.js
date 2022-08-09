@@ -69,8 +69,8 @@ const createTimerWindow = () => {
 
 const createTimerAndSplitsWindow = (activityName) => {
     const createdWindow = new BrowserWindow({
-        width: 300,
-        height: 500,
+        width: 400,
+        height: 550,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
@@ -79,6 +79,13 @@ const createTimerAndSplitsWindow = (activityName) => {
 
     createdWindow.setTitle(activityName);
     createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
+
+    // Set position
+    if (appWindowData.appWindows["split-editor"]) {
+        const splitEditorPosition = appWindowData.appWindows["split-editor"].getPosition();
+        createdWindow.setPosition(splitEditorPosition[0], splitEditorPosition[1]);
+        createdWindow.center();
+    }
 
     return createdWindow;
 }
@@ -140,6 +147,7 @@ const handleIpcMessages = () => {
         }
         else if (message === "new-split-editor") {
             createdWindow = createSplitEditorWindow();
+            appWindowData.appWindows["split-editor"] = createdWindow;
             returnMessage = "New split editor";
         }
         else if (message === "new-timer-and-splits") {
