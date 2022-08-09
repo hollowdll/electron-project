@@ -46,7 +46,7 @@ const createMainWindow = () => {
     mainWindow.loadFile(path.join(__dirname, "index.html"));
 
     // (Development mode) open DevTools
-    mainWindow.webContents.openDevTools(); 
+    // mainWindow.webContents.openDevTools(); 
 
     return mainWindow;
 }
@@ -67,7 +67,7 @@ const createTimerWindow = () => {
     return createdWindow;
 }
 
-const createTimerAndSplitsWindow = (activityName) => {
+const createTimerAndSplitsWindow = async (data) => {
     const createdWindow = new BrowserWindow({
         width: 400,
         height: 600,
@@ -77,8 +77,8 @@ const createTimerAndSplitsWindow = (activityName) => {
         }
     });
 
-    createdWindow.setTitle(activityName);
-    createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
+    createdWindow.setTitle(data.activity);
+    await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
 
     // Set position
     if (appWindowData.appWindows["split-editor"]) {
@@ -86,6 +86,9 @@ const createTimerAndSplitsWindow = (activityName) => {
         createdWindow.setPosition(splitEditorPosition[0], splitEditorPosition[1]);
         createdWindow.center();
     }
+
+    // Send data to the new renderer process
+    createdWindow.webContents.send("new-window-created", data);
 
     return createdWindow;
 }

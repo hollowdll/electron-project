@@ -27,6 +27,7 @@ contextBridge.exposeInMainWorld("keyboardShortcuts", {
 // Window creating API
 contextBridge.exposeInMainWorld("windowCreator", {
     createNewWindow: (message, data) => ipcRenderer.invoke("create-new-window", message, data),
-
+    onWindowCreated: (callback) => ipcRenderer.on("new-window-created", callback),
+    
 })
 

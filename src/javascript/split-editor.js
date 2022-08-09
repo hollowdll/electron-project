@@ -235,18 +235,23 @@ document.getElementById("ok-button").addEventListener("click", () => {
     let splitNames = [];
 
     // Get the names of each split
-    for (let i = 0; i < splitEditorWindowData.splits.length; i++) {
-        splitNames[i] = splitEditorWindowData.splits[i].innerText;
+    if (splitEditorWindowData.splits.length > 0) {
+        for (let i = 0; i < splitEditorWindowData.splits.length; i++) {
+            splitNames[i] = splitEditorWindowData.splits[i].innerText;
+        }
     }
 
     console.log(splitNames);
 
     // Create an object of data to pass to the main process
     let windowDataToPass = {
-        activity: activityName,
-        category: categoryName,
+        activity: "Untitled",
+        category: "",
         splits: splitNames
     };
+
+    if (typeof activityName === "string") windowDataToPass.activity = activityName;
+    if (typeof categoryName === "string") windowDataToPass.category = categoryName;
 
     // Create new timer and splits window
     window.windowCreator.createNewWindow("new-timer-and-splits", windowDataToPass);
