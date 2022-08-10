@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Top bar buttons //
 document.getElementById("splits-button").addEventListener("click", () => {
+    // Swap visible views
     document.querySelector(".customize").style.display = "none";
     document.querySelector(".splits").style.display = "block";
 })
@@ -65,15 +66,8 @@ const addSplit = () => {
     splitHolder.appendChild(createdSplit);
     document.querySelector(".list-of-splits").appendChild(splitHolder);
 
-    // Add an order value to the element as an array index
-    createdSplit.value = splitEditorWindowData.splitCount;
-
-    // Push the element to splits array
-    splitEditorWindowData.splits.push(createdSplit);
-
     // Increase splitCount by 1
     splitEditorWindowData.splitCount++;
-    // createdSplit.innerText = `${splitEditorWindowData.splitCount}. ${createdSplit.innerText}`;
 
     // when a split is selected
     createdSplit.addEventListener("click", () => {
@@ -91,13 +85,8 @@ const addSplit = () => {
 
 const removeSplit = () => {
     if (splitEditorWindowData.selectedSplit) {
-        // Remove from splits array
-        const orderIndex = parseInt(splitEditorWindowData.selectedSplit.value);
-        splitEditorWindowData.splits.splice(orderIndex, 1);
-        console.log(splitEditorWindowData.splits[1].innerText);
-        
-        // Remove from the window
-        splitEditorWindowData.selectedSplit.remove();
+        // Remove split element from the window
+        splitEditorWindowData.selectedSplit.parentElement.remove();   // Remove the parent paragraph element which holds the split button
         splitEditorWindowData.selectedSplit = null;
         splitEditorWindowData.splitCount--;
 
@@ -234,10 +223,13 @@ document.getElementById("ok-button").addEventListener("click", () => {
     let categoryName = document.getElementById("category-name").value;
     let splitNames = [];
 
+    // Get all split elements as array
+    const splitElements = Object.values(document.querySelector(".list-of-splits").children);
+    
     // Get the names of each split
-    if (splitEditorWindowData.splits.length > 0) {
-        for (let i = 0; i < splitEditorWindowData.splits.length; i++) {
-            splitNames[i] = splitEditorWindowData.splits[i].innerText;
+    if (splitElements.length > 0) {
+        for (let i = 0; i < splitElements.length; i++) {
+            splitNames[i] = splitElements[i].firstChild.innerText;
         }
     }
 

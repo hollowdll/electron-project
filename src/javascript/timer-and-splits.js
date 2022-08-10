@@ -4,7 +4,6 @@
 
 // When this window is created
 window.windowCreator.onWindowCreated((event, data) => {
-    console.log(data);
 
     // Assign passed data to this window
     document.getElementById("activity").innerText = data.activity;
@@ -16,7 +15,7 @@ window.windowCreator.onWindowCreated((event, data) => {
         const splitElemChildren = splitElem.childNodes;
         splitElem.style.display = "block";
 
-        for (child of splitElemChildren) {
+        for (let child of splitElemChildren) {
             if (child.id === "split-name") {
                 child.innerText = data.splits[i];
             }
@@ -26,6 +25,6 @@ window.windowCreator.onWindowCreated((event, data) => {
 
     }
 
-    
+    console.log(data.splits);
 })
 
