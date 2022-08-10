@@ -22,6 +22,7 @@
 
 .splits  {
     text-align: center;
+    font-family: sans-serif;
 }
 
 .splits button {
@@ -68,6 +69,7 @@
 
 .customize {
     display: none;
+    font-family: sans-serif;
 }
 
 .customize label {
@@ -84,5 +86,12 @@
 .customize-right {
     position: absolute;
     right: 30px;
+}
+
+.customize input {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    margin: 0;
 }
 

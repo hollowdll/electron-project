@@ -239,7 +239,12 @@ document.getElementById("ok-button").addEventListener("click", () => {
     let windowDataToPass = {
         activity: "Untitled",
         category: "",
-        splits: splitNames
+        splits: splitNames,
+        customization: {
+            activityColor: "",
+            categoryColor: "",
+            
+        }
     };
 
     if (typeof activityName === "string") windowDataToPass.activity = activityName;
@@ -249,7 +254,7 @@ document.getElementById("ok-button").addEventListener("click", () => {
     window.windowCreator.createNewWindow("new-timer-and-splits", windowDataToPass);
 
 
-
+    // close window
     // window.close();
 })
 
