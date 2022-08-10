@@ -6,8 +6,13 @@
 window.windowCreator.onWindowCreated((event, data) => {
 
     // Assign passed data to this window
-    document.getElementById("activity").innerText = data.activity;
-    document.getElementById("category").innerText = data.category;
+    const activityName = document.getElementById("activity");
+    activityName.innerText = data.activity;
+    activityName.style.color = data.customization.activityColor;
+    
+    const categoryName = document.getElementById("category");
+    categoryName.innerText = data.category;
+    categoryName.style.color = data.customization.categoryColor;
 
     // Create split elements
     if (data.splits.length > 0) {
@@ -26,6 +31,9 @@ window.windowCreator.onWindowCreated((event, data) => {
         }
     }
 
-    console.log(data.splits);
+    // Assign customization to this window
+    document.getElementById("timer-label").style.color = data.customization.timerColor;
+    document.getElementById("personal-best-value").style.color = data.customization.personalBestTimeColor;
+
 })
 

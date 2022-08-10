@@ -74,11 +74,11 @@ const createTimerAndSplitsWindow = async (data) => {
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
+            show: false
         }
     });
 
     createdWindow.setTitle(data.activity);
-    await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
 
     // Set position
     if (appWindowData.appWindows["split-editor"]) {
@@ -87,8 +87,14 @@ const createTimerAndSplitsWindow = async (data) => {
         createdWindow.center();
     }
 
+    // Wait for window contents to load
+    await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
+
     // Send data to the new renderer process
     createdWindow.webContents.send("new-window-created", data);
+
+    // Show window
+    createdWindow.show();
 
     return createdWindow;
 }
