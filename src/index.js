@@ -70,7 +70,7 @@ const createTimerWindow = () => {
 const createTimerAndSplitsWindow = async (data) => {
     const createdWindow = new BrowserWindow({
         width: 400,
-        height: 600,
+        height: 650,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
