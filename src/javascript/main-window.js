@@ -2,6 +2,7 @@
 // Main window events and functions //
 //----------------------------------//
 
+"use strict";
 
 // Button events //
 document.getElementById("new-timer").addEventListener("click", async () => {

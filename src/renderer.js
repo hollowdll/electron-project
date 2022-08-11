@@ -4,6 +4,7 @@
 
 // This file is the main javascript file of the renderer process //
 
+"use strict";
 
 // Handle IPC messages from the main process //
 

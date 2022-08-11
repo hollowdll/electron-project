@@ -2,6 +2,8 @@
 // Split Editor window events and functions //
 //------------------------------------------//
 
+"use strict";
+
 // Track data of the window //
 let splitEditorWindowData = {
     currentUIView: "splits",
@@ -220,7 +222,7 @@ document.getElementById("ok-button").addEventListener("click", () => {
     // Read window data
     let activityName = document.getElementById("activity-name").value;
     if (activityName === "") activityName = "Untitled";
-    let categoryName = document.getElementById("category-name").value;
+    const categoryName = document.getElementById("category-name").value;
     let splitNames = [];
 
     // Get all split elements as array
