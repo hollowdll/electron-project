@@ -161,15 +161,15 @@ class Timer {
 
             if (parseFloat(hoursText) < 1) {
                 hoursText = "";
+                minutesText = this.minutes.toFixed(0) + ":";
             }
-            minutesText = this.minutes.toFixed(0) + ":";
         }
         
         // Parse into string format
         timeText = `${hoursText}${minutesText}${secondsText}`;
 
         // (Debug tool) Make the timer go faster //
-        // this.timeElapsed += 1000;
+        // this.timeElapsed += 10000;
 
         return timeText;
     }
