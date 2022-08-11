@@ -12,6 +12,7 @@ let windowData = {
         splitTimeLost: null,
         splitIndicator: null
     },
+    splitTimes: [],
     currentSplit: null,
 
 }
@@ -48,7 +49,7 @@ window.windowCreator.onWindowCreated((event, data) => {
             const splitElemChildren = Object.values(splitElem.children);
             splitElem.style.display = "block";
     
-            for (let child of splitElemChildren) {
+            for (const child of splitElemChildren) {
                 // Assign data and customization
                 if (child.id === "split-name") {
                     child.innerText = data.splits[i];
@@ -72,3 +73,29 @@ window.windowCreator.onWindowCreated((event, data) => {
 
 })
 
+
+//--------------------------//
+// Split time functionality //
+//--------------------------//
+
+// Next split button
+document.getElementById("next-split").addEventListener("click", () => {
+    // Get the timer's time in milliseconds
+    const elapsedTime = timer.getTime();
+    const elapsedTimeText = timer.formatTime(elapsedTime, true);
+
+    if (windowData.currentSplit) {
+        // Get children of the current split
+        const splitElemChildren = Object.values(windowData.currentSplit.children);
+
+        // Assign times to current split
+        for (const child of splitElemChildren) {
+            if (child.id === "split-time") {
+                child.innerText = elapsedTimeText;
+            }
+            else if (child.id === "split-time-save") {
+
+            }
+        }
+    }
+})

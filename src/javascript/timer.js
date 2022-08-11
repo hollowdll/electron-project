@@ -2,8 +2,6 @@
 // Timer class for the timer //
 //---------------------------//
 
-// Debug tool on line 148 //
-
 "use strict";
 
 class Timer {
@@ -81,6 +79,7 @@ class Timer {
 
             // Reset elapsed time
             this.timeElapsed = 0;
+            this.startTime = 0;
             console.log("Timer reset!");
 
             // Use clearInterval to pause the timer
@@ -105,11 +104,16 @@ class Timer {
     }
 
     getTime() {
-        return this.timeElapsed + Date.now() - this.startTime;
+        if (this.startTime <= 0) {
+            return 0;
+        }
+        else {
+            return this.timeElapsed + Date.now() - this.startTime;
+        }
     }
 
     // Format time before rendering it in DOM
-    formatTime(timeInMilliseconds) {
+    formatTime(timeInMilliseconds, convertToSplitTime) {
         let timeText = "00:00:00.00";
         this.seconds = timeInMilliseconds / 1000;
         this.minutes = Math.floor(this.seconds / 60);
@@ -126,8 +130,8 @@ class Timer {
 
         // Used in the formatted text
         let secondsText = this.seconds.toFixed(2);
-        let minutesText = this.minutes.toFixed(0);
-        let hoursText = this.hours.toFixed(0);
+        let minutesText = this.minutes.toFixed(0) + ":";
+        let hoursText = this.hours.toFixed(0) + ":";
 
         // Check if 0 needs to be added to the beginning
         if (parseFloat(secondsText) < 10) {
@@ -143,7 +147,11 @@ class Timer {
         }
         
         // Parse into string format
-        timeText = `${hoursText}:${minutesText}:${secondsText}`;
+        timeText = `${hoursText}${minutesText}${secondsText}`;
+
+        // If convertToSplitTime is true
+        secondsText = this.seconds.toFixed(0);
+
 
         // (Debug tool) Make the timer go faster //
         // this.timeElapsed += 1000;
