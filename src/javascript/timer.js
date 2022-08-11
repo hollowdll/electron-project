@@ -112,6 +112,10 @@ class Timer {
         }
     }
 
+    getTimeElapsed() {
+        return this.timeElapsed;
+    }
+
     // Format time before rendering it in DOM
     formatTime(timeInMilliseconds, convertToSplitTime) {
         let timeText = "00:00:00.00";
@@ -133,6 +137,11 @@ class Timer {
         let minutesText = this.minutes.toFixed(0) + ":";
         let hoursText = this.hours.toFixed(0) + ":";
 
+        // If convertToSplitTime is true
+        if (convertToSplitTime) {
+            secondsText = this.seconds.toFixed(0);
+        }
+
         // Check if 0 needs to be added to the beginning
         if (parseFloat(secondsText) < 10) {
             secondsText = `0${secondsText}`;
@@ -146,12 +155,18 @@ class Timer {
             hoursText = `0${hoursText}`;
         }
         
+        // If convertToSplitTime is true
+        if (convertToSplitTime) {
+            hoursText = this.hours.toFixed(0) + ":";
+
+            if (parseFloat(hoursText) < 1) {
+                hoursText = "";
+            }
+            minutesText = this.minutes.toFixed(0) + ":";
+        }
+        
         // Parse into string format
         timeText = `${hoursText}${minutesText}${secondsText}`;
-
-        // If convertToSplitTime is true
-        secondsText = this.seconds.toFixed(0);
-
 
         // (Debug tool) Make the timer go faster //
         // this.timeElapsed += 1000;

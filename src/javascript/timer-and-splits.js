@@ -10,7 +10,7 @@ let windowData = {
         splitBackground: "rgb(200,200,200)",
         splitTimeSave: null,
         splitTimeLost: null,
-        splitIndicator: null
+        splitIndicator: null,
     },
     splitTimes: [],
     currentSplit: null,
@@ -80,11 +80,18 @@ window.windowCreator.onWindowCreated((event, data) => {
 
 // Next split button
 document.getElementById("next-split").addEventListener("click", () => {
-    // Get the timer's time in milliseconds
-    const elapsedTime = timer.getTime();
-    const elapsedTimeText = timer.formatTime(elapsedTime, true);
-
     if (windowData.currentSplit) {
+        // Get the timer's time in milliseconds
+        let elapsedTime = 0;
+
+        if (timer.isRunning) {
+            elapsedTime = timer.getTime();
+        } else {
+            elapsedTime = timer.getTimeElapsed();
+        }
+
+        const elapsedTimeText = timer.formatTime(elapsedTime, true);
+
         // Get children of the current split
         const splitElemChildren = Object.values(windowData.currentSplit.children);
 
@@ -94,8 +101,17 @@ document.getElementById("next-split").addEventListener("click", () => {
                 child.innerText = elapsedTimeText;
             }
             else if (child.id === "split-time-save") {
+                // Calculate time save/lost compared to split time
 
             }
+        }
+
+        // Move current split indicator to the next split
+        const nextSplit = windowData.currentSplit.nextElementSibling;
+        if (nextSplit) {
+            windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground;
+            windowData.currentSplit = nextSplit;
+            nextSplit.style["background-color"] = windowData.colors.splitIndicator;
         }
     }
 })
