@@ -206,12 +206,12 @@ class Timer {
         }
 
         // Check if hours and minutes need to be omitted
-        if (parseFloat(hoursText) < 1) {
-            hoursText = "";
-        }
-
         if (parseFloat(minutesText) < 1 && parseFloat(hoursText) < 1) {
             minutesText = "";
+        }
+
+        if (parseFloat(hoursText) < 1) {
+            hoursText = "";
         }
         
         // Parse into string format
