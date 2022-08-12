@@ -14,7 +14,8 @@ let windowData = {
     },
     splitTimes: [],
     currentSplit: null,
-
+    splitsCompleted: 0,
+    totalScrollTopOffset: 0,
 }
 
 // When this window is created
@@ -106,12 +107,24 @@ document.getElementById("next-split").addEventListener("click", () => {
             }
         }
 
-        // Move current split indicator to the next split
+        // Check if there is next split
         const nextSplit = windowData.currentSplit.nextElementSibling;
         if (nextSplit) {
+            // Get the offset between splits for auto scrolling
+            const scrollTopOffset = nextSplit.offsetTop - windowData.currentSplit.offsetTop;
+
+            // Move current split indicator to the next split
             windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground;
             windowData.currentSplit = nextSplit;
             nextSplit.style["background-color"] = windowData.colors.splitIndicator;
+            // Increment by 1
+            windowData.splitsCompleted++;
+
+            // Scroll list down if no visible splits
+            if (windowData.splitsCompleted > 5) {
+                document.querySelector(".split-list").scrollTo({ top: windowData.totalScrollTopOffset + scrollTopOffset });
+                windowData.totalScrollTopOffset += scrollTopOffset;
+            }
         }
     }
 })
