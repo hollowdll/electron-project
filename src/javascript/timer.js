@@ -33,7 +33,7 @@ class Timer {
                 // Create time counting function
                 const countTime = () => {
                     const timeInMilliseconds = this.getTime();
-                    timerLabel.innerText = this.formatTime(timeInMilliseconds);
+                    timerLabel.innerText = this.formatTimeToShort(timeInMilliseconds);
                 }
                 
                 // Use setInterval to start the timer
@@ -64,7 +64,7 @@ class Timer {
             if (timerLabel) {
                 // Update timer DOM element
                 const timeInMilliseconds = this.timeElapsed;
-                timerLabel.innerText = this.formatTime(timeInMilliseconds);
+                timerLabel.innerText = this.formatTimeToShort(timeInMilliseconds);
             }
         }
     }
@@ -95,7 +95,7 @@ class Timer {
             // Check if timerLabel still exists
             if (timerLabel) {
                 // Reset the text to default
-                timerLabel.innerText = "00:00:00.00";
+                timerLabel.innerText = "0.00";
             }
         }
     }
@@ -174,7 +174,53 @@ class Timer {
     // Format time to shorter version
     formatTimeToShort(timeInMilliseconds) {
         let timeText = "0.00";
+        let seconds = timeInMilliseconds / 1000;
+        let minutes = Math.floor(seconds / 60);
+        let hours = Math.floor(minutes / 60);
+
+        // Reset seconds and minutes back to 0 when 60 is reached
+        if (seconds >= 60) {
+            seconds -= 60 * minutes;
+        }
+
+        if (minutes >= 60) {
+            minutes -= 60 * hours;
+        }
+
+        // Used in the formatted text
+        let secondsText = seconds.toFixed(2);
+        let minutesText = minutes.toFixed(0) + ":";
+        let hoursText = hours.toFixed(0) + ":";
+
+        // Check if 0 needs to be added to the beginning
+        if (parseFloat(secondsText) < 10 && parseFloat(minutesText) >= 1) {
+            secondsText = `0${secondsText}`;
+        }
+
+        if (parseFloat(secondsText) < 10 && parseFloat(hoursText) >= 1 && parseFloat(minutesText) < 1) {
+            secondsText = `0${secondsText}`;
+        }
+
+        if (parseFloat(minutesText) < 10 && parseFloat(hoursText) >= 1) {
+            minutesText = `0${minutesText}`;
+        }
+
+        // Check if hours and minutes need to be omitted
+        if (parseFloat(hoursText) < 1) {
+            hoursText = "";
+        }
+
+        if (parseFloat(minutesText) < 1 && parseFloat(hoursText) < 1) {
+            minutesText = "";
+        }
         
+        // Parse into string format
+        timeText = `${hoursText}${minutesText}${secondsText}`;
+
+        // (Debug tool) Make the timer go faster //
+        // this.timeElapsed += 10000;
+
+        return timeText;
     }
 
     initTimer() {
