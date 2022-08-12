@@ -9,9 +9,6 @@ class Timer {
         // Variables used by the timer
         this.startTime = 0;
         this.timeElapsed = 0;
-        this.seconds = 0;
-        this.minutes = 0;
-        this.hours = 0;
         this.timeCounter = undefined;
         this.canReset = false;
         this.isRunning = false;
@@ -119,27 +116,27 @@ class Timer {
     // Format time before rendering it in DOM
     formatTime(timeInMilliseconds, convertToSplitTime) {
         let timeText = "00:00:00.00";
-        this.seconds = timeInMilliseconds / 1000;
-        this.minutes = Math.floor(this.seconds / 60);
-        this.hours = Math.floor(this.minutes / 60);
+        let seconds = timeInMilliseconds / 1000;
+        let minutes = Math.floor(seconds / 60);
+        let hours = Math.floor(minutes / 60);
 
         // Reset seconds and minutes back to 0 when 60 is reached
-        if (this.seconds >= 60) {
-            this.seconds -= 60 * this.minutes;
+        if (seconds >= 60) {
+            seconds -= 60 * minutes;
         }
 
-        if (this.minutes >= 60) {
-            this.minutes -= 60 * this.hours;
+        if (minutes >= 60) {
+            minutes -= 60 * hours;
         }
 
         // Used in the formatted text
-        let secondsText = this.seconds.toFixed(2);
-        let minutesText = this.minutes.toFixed(0) + ":";
-        let hoursText = this.hours.toFixed(0) + ":";
+        let secondsText = seconds.toFixed(2);
+        let minutesText = minutes.toFixed(0) + ":";
+        let hoursText = hours.toFixed(0) + ":";
 
         // If convertToSplitTime is true
         if (convertToSplitTime) {
-            secondsText = this.seconds.toFixed(0);
+            secondsText = seconds.toFixed(0);
         }
 
         // Check if 0 needs to be added to the beginning
@@ -157,11 +154,11 @@ class Timer {
         
         // If convertToSplitTime is true
         if (convertToSplitTime) {
-            hoursText = this.hours.toFixed(0) + ":";
+            hoursText = hours.toFixed(0) + ":";
 
             if (parseFloat(hoursText) < 1) {
                 hoursText = "";
-                minutesText = this.minutes.toFixed(0) + ":";
+                minutesText = minutes.toFixed(0) + ":";
             }
         }
         
@@ -172,6 +169,12 @@ class Timer {
         // this.timeElapsed += 10000;
 
         return timeText;
+    }
+
+    // Format time to shorter version
+    formatTimeToShort(timeInMilliseconds) {
+        let timeText = "0.00";
+        
     }
 
     initTimer() {

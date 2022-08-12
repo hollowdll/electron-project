@@ -69,8 +69,8 @@ const createTimerWindow = () => {
 
 const createTimerAndSplitsWindow = async (data) => {
     const createdWindow = new BrowserWindow({
-        width: 400,
-        height: 650,
+        width: 350,
+        height: 550,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
@@ -79,6 +79,8 @@ const createTimerAndSplitsWindow = async (data) => {
     });
 
     createdWindow.setTitle(data.activity);
+    createdWindow.setResizable(false);
+    createdWindow.setFullScreenable(false);
 
     // Set position
     if (appWindowData.appWindows["split-editor"]) {

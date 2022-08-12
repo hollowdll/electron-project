@@ -16,6 +16,7 @@ let windowData = {
     currentSplit: null,
     splitsCompleted: 0,
     totalScrollTopOffset: 0,
+    personalBestTimeMilliseconds: null,
 }
 
 // When this window is created
@@ -120,11 +121,29 @@ document.getElementById("next-split").addEventListener("click", () => {
             // Increment by 1
             windowData.splitsCompleted++;
 
-            // Scroll list down if no visible splits
+            // Scroll list down automatically if no visible splits
             if (windowData.splitsCompleted > 5) {
                 document.querySelector(".split-list").scrollTo({ top: windowData.totalScrollTopOffset + scrollTopOffset });
                 windowData.totalScrollTopOffset += scrollTopOffset;
             }
         }
+        else {
+            // Finish if no next split
+            windowData.splitsCompleted++;
+
+            // Pause timer
+            timer.pause();
+
+            // Update personal best time if new record
+            if (elapsedTime < windowData.personalBestTimeMilliseconds || windowData.personalBestTimeMilliseconds == null) {
+                windowData.personalBestTimeMilliseconds = elapsedTime;
+                document.getElementById("personal-best-value").innerText = elapsedTimeText;
+            }
+        }
+
+        // Check splits completed
+        console.log(windowData.splitsCompleted);
+
+
     }
 })
