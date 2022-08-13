@@ -12,11 +12,12 @@ let windowData = {
         splitTimeLost: null,
         splitIndicator: null,
     },
-    splitTimes: [],
     currentSplit: null,
     splitsCompleted: 0,
     totalScrollTopOffset: 0,
     personalBestTimeMilliseconds: null,
+    personalBestSplitTimes: [],
+    isFinished: false,
 }
 
 // When this window is created
@@ -129,15 +130,33 @@ document.getElementById("next-split").addEventListener("click", () => {
         }
         else {
             // Finish if no next split
-            windowData.splitsCompleted++;
+            if (!windowData.isFinished) {
+                windowData.isFinished = true;
+                windowData.splitsCompleted++;
 
-            // Pause timer
-            timer.pause();
+                // Pause timer
+                timer.pause();
 
-            // Update personal best time if new record
-            if (elapsedTime < windowData.personalBestTimeMilliseconds || windowData.personalBestTimeMilliseconds == null) {
-                windowData.personalBestTimeMilliseconds = elapsedTime;
-                document.getElementById("personal-best-value").innerText = elapsedTimeText;
+                // Update personal best time if new record
+                if (elapsedTime < windowData.personalBestTimeMilliseconds || windowData.personalBestTimeMilliseconds == null) {
+                    windowData.personalBestTimeMilliseconds = elapsedTime;
+                    document.getElementById("personal-best-value").innerText = elapsedTimeText;
+
+                    // Save personal best split times
+                    const splitElements = Object.values(document.querySelector(".split-list").children);
+                    for (const splitElem of splitElements) {
+                        const splitElemChildren = Object.values(splitElem.children);
+                        for (const splitData of splitElemChildren) {
+                            // Check if data is split time
+                            if (splitData.id === "split-time") {
+                                // Save the time
+                                windowData.personalBestSplitTimes.push(splitData.innerText);
+                            }
+                        }
+                    }
+
+                    console.log(windowData.personalBestSplitTimes);
+                }
             }
         }
 
