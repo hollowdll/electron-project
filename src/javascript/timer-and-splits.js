@@ -222,3 +222,14 @@ document.getElementById("reset-button").addEventListener("click", () => {
         }
     }
 })
+
+
+// Reset Personal Best Button //
+document.getElementById("reset-pb").addEventListener("click", () => {
+    if (windowData.personalBestTimeMilliseconds != null) {
+        // Reset PB time and its splits
+        windowData.personalBestTimeMilliseconds = null;
+        windowData.personalBestSplitTimes = [];
+        document.getElementById("personal-best-value").innerText = "--";
+    }
+})
