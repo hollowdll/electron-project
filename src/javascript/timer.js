@@ -224,6 +224,72 @@ class Timer {
         return timeText;
     }
 
+    formatTimeToTimeSave(timeInMilliseconds, isNegative) {
+        // Check if time is negative
+        if (isNegative) {
+            // Change to positive for the calculations
+            timeInMilliseconds *= (-1);
+        }
+
+        let timeText = "+0.0";
+        let seconds = timeInMilliseconds / 1000;
+        let minutes = Math.floor(seconds / 60);
+        let hours = Math.floor(minutes / 60);
+
+        // Reset seconds and minutes back to 0 when 60 is reached
+        if (seconds >= 60) {
+            seconds -= 60 * minutes;
+        }
+
+        if (minutes >= 60) {
+            minutes -= 60 * hours;
+        }
+
+        // Used in the formatted text
+        let secondsText = seconds.toFixed(1);
+        let minutesText = minutes.toFixed(0) + ":";
+        let hoursText = hours.toFixed(0) + ":";
+
+        // Check if seconds need to be rounded to integers
+        if (parseFloat(minutesText) >= 1 || parseFloat(hoursText) >= 1) {
+            secondsText = Math.floor(seconds);
+        }
+
+        // Check if 0 needs to be added to the beginning
+        if (parseFloat(secondsText) < 10 && parseFloat(minutesText) >= 1) {
+            secondsText = `0${secondsText}`;
+        }
+
+        if (parseFloat(secondsText) < 10 && parseFloat(hoursText) >= 1 && parseFloat(minutesText) < 1) {
+            secondsText = `0${secondsText}`;
+        }
+
+        if (parseFloat(minutesText) < 10 && parseFloat(hoursText) >= 1) {
+            minutesText = `0${minutesText}`;
+        }
+
+        // Check if hours and minutes need to be omitted
+        if (parseFloat(minutesText) < 1 && parseFloat(hoursText) < 1) {
+            minutesText = "";
+        }
+
+        if (parseFloat(hoursText) < 1) {
+            hoursText = "";
+        }
+        
+        // Parse into string format
+        timeText = `${hoursText}${minutesText}${secondsText}`;
+
+        // Check if time is negative
+        if (isNegative) {
+            timeText = `-${timeText}`;
+        } else {
+            timeText = `+${timeText}`;
+        }
+
+        return timeText;
+    }
+
     initTimer() {
         // DOM button events //
         document.getElementById("start-button").addEventListener("click", () => {

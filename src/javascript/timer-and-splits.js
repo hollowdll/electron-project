@@ -20,6 +20,7 @@ let windowData = {
     isFinished: false,
 }
 
+
 // When this window is created
 window.windowCreator.onWindowCreated((event, data) => {
 
@@ -85,6 +86,10 @@ window.windowCreator.onWindowCreated((event, data) => {
 document.getElementById("next-split").addEventListener("click", () => {
     // Make sure there is at least 1 split
     if (windowData.currentSplit && !windowData.isFinished) {
+        // Get the split list
+        const splitList = document.querySelector(".split-list");
+        const splitListElements = Object.values(splitList.children);
+
         // Get the timer's time in milliseconds
         let elapsedTime = 0;
 
@@ -94,6 +99,7 @@ document.getElementById("next-split").addEventListener("click", () => {
             elapsedTime = timer.getTimeElapsed();
         }
 
+        // Get the time format for split times
         const elapsedTimeText = timer.formatTime(elapsedTime, true);
 
         // Get children of the current split
@@ -106,8 +112,16 @@ document.getElementById("next-split").addEventListener("click", () => {
                 child.value = elapsedTime;
             }
             else if (child.id === "split-time-save") {
-                // Calculate time save/lost compared to split time
-
+                // Check if there is a PB (Personal Best)
+                if (windowData.personalBestTimeMilliseconds != null) {
+                    const pbSplitTime = windowData.personalBestSplitTimes[splitListElements.indexOf(windowData.currentSplit)];
+                    
+                    // Calculate time save/lost compared to split time
+                    const timeDifference = elapsedTime - pbSplitTime;
+                    let isNegative = (timeDifference < 0) ? true : false;
+                    const timeSaveText = timer.formatTimeToTimeSave(timeDifference, isNegative);
+                    child.innerText = timeSaveText;
+                }
             }
         }
 
@@ -126,7 +140,7 @@ document.getElementById("next-split").addEventListener("click", () => {
 
             // Scroll list down automatically if no visible splits
             if (windowData.splitsCompleted > 5) {
-                document.querySelector(".split-list").scrollTo({ top: windowData.totalScrollTopOffset + scrollTopOffset });
+                splitList.scrollTo({ top: windowData.totalScrollTopOffset + scrollTopOffset });
                 windowData.totalScrollTopOffset += scrollTopOffset;
             }
         }
@@ -152,7 +166,7 @@ document.getElementById("next-split").addEventListener("click", () => {
                     windowData.personalBestSplitTimes = [];
 
                     // Save personal best split times
-                    const splitElements = Object.values(document.querySelector(".split-list").children);
+                    const splitElements = Object.values(splitList.children);
                     for (const splitElem of splitElements) {
                         const splitElemChildren = Object.values(splitElem.children);
                         for (const splitData of splitElemChildren) {
