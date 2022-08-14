@@ -134,9 +134,10 @@ class Timer {
         let minutesText = minutes.toFixed(0) + ":";
         let hoursText = hours.toFixed(0) + ":";
 
-        // If convertToSplitTime is true
+        // If convertToSplitTime is true, round seconds down to integers 
         if (convertToSplitTime) {
-            secondsText = seconds.toFixed(0);
+            secondsText = Math.floor(seconds);
+            // secondsText = seconds.toFixed(0);
         }
 
         // Check if 0 needs to be added to the beginning
