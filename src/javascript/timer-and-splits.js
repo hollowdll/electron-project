@@ -8,6 +8,7 @@
 let windowData = {
     colors: {
         splitBackground: "rgb(200,200,200)",
+        splitTimeText: null,
         splitTimeSave: null,
         splitTimeLost: null,
         splitIndicator: null,
@@ -38,6 +39,7 @@ window.windowCreator.onWindowCreated((event, data) => {
     document.getElementById("timer-label").style.color = data.customization.timerColor;
     document.getElementById("personal-best-value").style.color = data.customization.personalBestTimeColor;
 
+    windowData.colors.splitTimeText = data.customization.splitTimeColor;
     windowData.colors.splitTimeSave = data.customization.splitTimeSaveColor;
     windowData.colors.splitTimeLost = data.customization.splitTimeLostColor;
     windowData.colors.splitIndicator = data.customization.splitIndicatorColor;
@@ -117,10 +119,21 @@ document.getElementById("next-split").addEventListener("click", () => {
                     const pbSplitTime = windowData.personalBestSplitTimes[splitListElements.indexOf(windowData.currentSplit)];
                     
                     // Calculate time save/lost compared to split time
-                    const timeDifference = elapsedTime - pbSplitTime;
-                    let isNegative = (timeDifference < 0) ? true : false;
-                    const timeSaveText = timer.formatTimeToTimeSave(timeDifference, isNegative);
-                    child.innerText = timeSaveText;
+                    if (pbSplitTime != null) {
+                        const timeDifference = elapsedTime - pbSplitTime;
+                        let isNegative = (timeDifference < 0) ? true : false;
+                        const timeSaveText = timer.formatTimeToTimeSave(timeDifference, isNegative);
+                        child.innerText = timeSaveText;
+
+                        // Assign the right text color
+                        /*
+                        if (isNegative) {
+                            child.style.color = windowData.colors.splitTimeSave;
+                        } else {
+                            child.style.color = windowData.colors.splitTimeLost;
+                        }
+                        */
+                    }
                 }
             }
         }
@@ -230,7 +243,9 @@ document.getElementById("reset-button").addEventListener("click", () => {
                     }
                 }
                 else if (splitData.id === "split-time-save") {
+                    // Reset split time saves
                     splitData.innerText = "--";
+                    splitData.style.color = windowData.colors.splitTimeText;
                 }
             }
         }

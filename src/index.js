@@ -14,8 +14,8 @@ let appWindowData = {
 // Function for creating main window
 const createMainWindow = () => {
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 600,
+        height: 500,
         webPreferences: {
             // preload script
             preload: path.join(__dirname, "preload.js"),
@@ -26,7 +26,7 @@ const createMainWindow = () => {
     });
 
     // Set window title
-    mainWindow.setTitle("Timer Project");
+    mainWindow.setTitle("Timer Program");
 
     // Edit topbar menus
     
@@ -74,29 +74,19 @@ const createTimerAndSplitsWindow = async (data) => {
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
-            show: false
         }
     });
 
-    createdWindow.setTitle(data.activity);
+    // Set properties
+    if (typeof data.activity === "string") createdWindow.setTitle(data.activity);
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
-
-    // Set position
-    if (appWindowData.appWindows["split-editor"]) {
-        const splitEditorPosition = appWindowData.appWindows["split-editor"].getPosition();
-        createdWindow.setPosition(splitEditorPosition[0], splitEditorPosition[1]);
-        createdWindow.center();
-    }
 
     // Wait for window contents to load
     await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
 
     // Send data to the new renderer process
     createdWindow.webContents.send("new-window-created", data);
-
-    // Show window
-    createdWindow.show();
 
     return createdWindow;
 }
