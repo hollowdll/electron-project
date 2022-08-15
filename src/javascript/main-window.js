@@ -14,3 +14,8 @@ document.getElementById("new-timer-and-splits").addEventListener("click", async 
     const response = await window.windowCreator.createNewWindow("new-split-editor");
     console.log(response);
 })
+
+document.getElementById("open-timer").addEventListener("click", async () => {
+    const response = await window.windowCreator.createNewWindow("new-savefile-opener");
+    console.log(response);
+})

@@ -92,7 +92,21 @@ const createTimerAndSplitsWindow = async (data) => {
 }
 
 const createSavefileOpenerWindow = () => {
+    const createdWindow = new BrowserWindow({
+        width: 600,
+        height: 500,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            sandbox: true,
+        }
+    });
 
+    createdWindow.setTitle("Open a savefile");
+    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
+
+    createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
+
+    return createdWindow;
 }
 
 const createSplitEditorWindow = () => {
@@ -154,6 +168,10 @@ const handleIpcMessages = () => {
         else if (message === "new-timer-and-splits") {
             createdWindow = createTimerAndSplitsWindow(data);
             returnMessage = "New timer and splits";
+        }
+        else if (message === "new-savefile-opener") {
+            createdWindow = createSavefileOpenerWindow();
+            returnMessage = "New savefile opener";
         }
 
         

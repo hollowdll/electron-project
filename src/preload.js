@@ -31,3 +31,7 @@ contextBridge.exposeInMainWorld("windowCreator", {
     
 })
 
+// Electron file system API
+contextBridge.exposeInMainWorld("electronFileSystem", {
+    startDragFile: (fileName) => ipcRenderer.send("on-file-drag-start", path.join(process.cwd(), fileName)),
+})
