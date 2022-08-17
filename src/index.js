@@ -3,8 +3,9 @@
 //------------------------------//
 
 // Get modules
-const { app, BrowserWindow, ipcMain, globalShortcut, nativeTheme } = require("electron");
+const { app, BrowserWindow, ipcMain, globalShortcut, nativeTheme, Menu, MenuItem } = require("electron");
 const path = require("path");
+const fs = require("fs");
 
 // Keep track of app windows
 let appWindowData = {
@@ -35,7 +36,8 @@ const createMainWindow = () => {
     mainWindow.setBackgroundColor("rgb(155, 155, 155)");
 
     // Set window properties
-
+    mainWindow.setResizable(false);
+    mainWindow.setFullScreenable(false);
 
     // Show window after the renderer has loaded if not shown yet
     mainWindow.once("ready-to-show", () => {
@@ -62,6 +64,9 @@ const createTimerWindow = () => {
     });
 
     createdWindow.setTitle("Timer");
+    createdWindow.setResizable(false);
+    createdWindow.setFullScreenable(false);
+
     createdWindow.loadFile(path.join(__dirname, "html", "timer.html"));
 
     return createdWindow;
@@ -81,6 +86,65 @@ const createTimerAndSplitsWindow = async (data) => {
     if (typeof data.activity === "string") createdWindow.setTitle(data.activity);
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
+
+    // Set window menu
+    const menuTemplate = [
+        {
+            label: "File",
+            submenu: [
+                // Save a file
+                {
+                    label: "Save",
+                    click: () => {
+                        fs.writeFile(path.join(process.cwd(), "test-file1.txt"), "I was created by Electron!", (err) => {
+                            if (err) return console.log(err);
+                            console.log("File was created succesfully!");
+                        });
+                    }
+                },
+                // Open a file
+                {
+                    label: "Open",
+                    click: () => {
+
+                    }
+                }
+            ]
+        },
+        {
+            label: "Edit",
+            submenu: [
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                { role: 'delete' },
+                { type: 'separator' },
+                { role: 'selectAll' },
+                { label: "Split Editor" }
+            ]
+        },
+        {
+            label: 'View',
+            submenu: [
+              { role: 'reload' },
+              { role: 'forceReload' },
+              { role: 'toggleDevTools' },
+            ]
+        },
+        {
+            label: "Window",
+            submenu: [
+                { role: "minimize" },
+                { role: "close" }
+            ]
+        }
+    ]
+
+    const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(windowMenu);
 
     // Wait for window contents to load
     await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
@@ -119,7 +183,13 @@ const createSplitEditorWindow = () => {
         }
     });
 
+    // Set menu for this window
+    //createdWindow.setMenu(null);
+
     createdWindow.setTitle("Split Editor");
+    //createdWindow.setResizable(false);
+    //createdWindow.setFullScreenable(false);
+
     createdWindow.loadFile(path.join(__dirname, "html", "split-editor.html"));
 
     return createdWindow;
@@ -133,9 +203,10 @@ const createSettingsWindow = () => {
 
 }
 
+
 // Function for handling IPC messages from the renderer process
 const handleIpcMessages = () => {
-    // Dark mode
+    // Dark mode //
     ipcMain.handle("dark-mode:toggle", () => {
         if (nativeTheme.shouldUseDarkColors) {
             nativeTheme.themeSource = 'light';
@@ -149,7 +220,7 @@ const handleIpcMessages = () => {
         nativeTheme.themeSource = "system";
     });
 
-    // Create new windows
+    // Create new windows //
     ipcMain.handle("create-new-window", (event, message, data) => {
         let createdWindow = null;
         let returnMessage = "Nothing returned";
@@ -181,10 +252,15 @@ const handleIpcMessages = () => {
         
         return returnMessage;
     });
+
+    // File System //
+    
 }
 
 // Execute after app's ready event. This initializes the app.
 const initApp = () => {
+    
+
     // Handle IPC messages from the renderer process
     handleIpcMessages();
 

@@ -22,6 +22,12 @@ let windowData = {
 }
 
 
+// Create data after a savefile has been opened
+const createWindowData = () => {
+    
+}
+
+
 // When this window is created
 window.windowCreator.onWindowCreated((event, data) => {
 
