@@ -13,6 +13,7 @@ let windowData = {
         splitTimeLost: null,
         splitIndicator: null,
     },
+    dataForSavefile: null,
     currentSplit: null,
     splitsCompleted: 0,
     totalScrollTopOffset: 0,
@@ -22,14 +23,46 @@ let windowData = {
 }
 
 
-// Create data after a savefile has been opened
-const createWindowData = () => {
-    
+// Create PB data after a savefile has been opened if there is a PB
+const createPersonalBestData = () => {
+    const splitList = document.querySelector(".split-list");
+
+    // Loop through all split elements
+    const splitElements = Object.values(splitList.children);
+    for (const splitElem of splitElements) {
+        const splitElemChildren = Object.values(splitElem.children);
+        for (const splitData of splitElemChildren) {
+            if (splitData.id === "split-time") {
+                // Check if there is a PB time
+                if (windowData.personalBestTimeMilliseconds != null) {
+                    // Reset split times to PB split times
+                    const splitTimeMilliseconds = windowData.personalBestSplitTimes[splitElements.indexOf(splitElem)];
+                    splitData.value = splitTimeMilliseconds;
+                    splitData.innerText = timer.formatTime(splitTimeMilliseconds, true);
+                }
+            } 
+        }
+    }
 }
+
+
+// Get window data to save a file when main process requests
+window.appFileSystem.getTimerAndSplitsData((event) => {
+    const dataToSend = windowData.dataForSavefile;
+
+    dataToSend["personalBestTimeMilliseconds"] = windowData.personalBestTimeMilliseconds;
+    dataToSend["personalBestSplitTimes"] = windowData.personalBestSplitTimes;
+
+    JSON.stringify(dataToSend);
+
+    event.sender.send("send-timer-and-splits-data", dataToSend);
+})
 
 
 // When this window is created
 window.windowCreator.onWindowCreated((event, data) => {
+    // Save data for later usage
+    windowData.dataForSavefile = data;
 
     // Assign passed data to this window
     const activityName = document.getElementById("activity");
@@ -81,8 +114,15 @@ window.windowCreator.onWindowCreated((event, data) => {
         // Make the first split current split
         windowData.currentSplit = document.querySelector(".split-list").firstElementChild;
         windowData.currentSplit.style["background-color"] = windowData.colors.splitIndicator;
-    }
 
+        // Check if there is a personal best
+        if (data.personalBestTimeMilliseconds != null && data.personalBestSplitTimes != null) {
+            // Assign data
+            windowData.personalBestSplitTimes = data.personalBestSplitTimes;
+            windowData.personalBestTimeMilliseconds = data.personalBestTimeMilliseconds;
+            createPersonalBestData();
+        }
+    }
 })
 
 

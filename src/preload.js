@@ -31,7 +31,12 @@ contextBridge.exposeInMainWorld("windowCreator", {
     
 })
 
-// Electron file system API
-contextBridge.exposeInMainWorld("electronFileSystem", {
+// App file system API
+contextBridge.exposeInMainWorld("appFileSystem", {
+    // Request renderers to send window data to main process to save a file
+    getTimerData: (callback) => ipcRenderer.on("get-timer-data", callback),
+    getTimerAndSplitsData: (callback) => ipcRenderer.on("get-timer-and-splits-data", callback),
+
+    // Send window data to main process to save a file
     
 })
