@@ -48,14 +48,17 @@ const createPersonalBestData = () => {
 
 // Get window data to save a file when main process requests
 window.appFileSystem.getTimerAndSplitsData((event) => {
-    const dataToSend = windowData.dataForSavefile;
+    let dataToSend = windowData.dataForSavefile;
 
-    dataToSend["personalBestTimeMilliseconds"] = windowData.personalBestTimeMilliseconds;
-    dataToSend["personalBestSplitTimes"] = windowData.personalBestSplitTimes;
+    // Check if window has data
+    if (dataToSend != null) {
+        dataToSend["personalBestTimeMilliseconds"] = windowData.personalBestTimeMilliseconds;
+        dataToSend["personalBestSplitTimes"] = windowData.personalBestSplitTimes;
 
-    JSON.stringify(dataToSend);
+        dataToSend = `${JSON.stringify(dataToSend)}`;
 
-    event.sender.send("send-timer-and-splits-data", dataToSend);
+        event.sender.send("send-timer-and-splits-data", dataToSend);
+    }
 })
 
 

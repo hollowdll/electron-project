@@ -96,20 +96,17 @@ const createTimerAndSplitsWindow = async (data) => {
                 {
                     label: "Save",
                     click: async () => {
-                        const savefileContent = "";
-
                         // Get the savefile content
                         ipcMain.once("send-timer-and-splits-data", (_event, value) => {
-                            savefileContent = value;
+
+                            // Save the file
+                            fs.writeFile(path.join(process.cwd(), "savefiles", "savefile1.json"), value, (err) => {
+                                if (err) return console.log(err);
+                                console.log("File was created succesfully!");
+                            });
                         });
 
                         createdWindow.webContents.send("get-timer-and-splits-data");
-                        
-                        // Save the file
-                        fs.writeFile(path.join(process.cwd(), "savefiles", "savefile1.json"), savefileContent, (err) => {
-                            if (err) return console.log(err);
-                            console.log("File was created succesfully!");
-                        });
                     }
                 },
                 // Open a file
