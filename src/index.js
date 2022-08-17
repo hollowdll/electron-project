@@ -96,7 +96,7 @@ const createTimerAndSplitsWindow = async (data) => {
                 {
                     label: "Save",
                     click: () => {
-                        fs.writeFile(path.join(process.cwd(), "test-file1.txt"), "I was created by Electron!", (err) => {
+                        fs.writeFile(path.join(process.cwd(), "savefiles", "savefile1.txt"), "I was created by Electron!", (err) => {
                             if (err) return console.log(err);
                             console.log("File was created succesfully!");
                         });
@@ -106,7 +106,7 @@ const createTimerAndSplitsWindow = async (data) => {
                 {
                     label: "Open",
                     click: () => {
-
+                        
                     }
                 }
             ]

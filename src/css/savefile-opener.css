@@ -1,0 +1,43 @@
+body {
+    font-family: sans-serif;
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.title {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title label {
+    font-size: 30px;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu button {
+    width: 90%;
+    padding: 2px;
+    margin: 5px;
+    font-size: 18px;
+    border-radius: 10px;
+    border-width: 1px;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.menu button:hover {
+    background-color: rgb(200,200,200);
+}

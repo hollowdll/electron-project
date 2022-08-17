@@ -131,3 +131,6 @@ dist
 
 # app generated files
 generated_files/test_files/
+
+# savefiles
+savefiles/
