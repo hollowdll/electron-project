@@ -12,6 +12,25 @@ let appWindowData = {
     appWindows: {},
 }
 
+// Fetch savefile data
+const fetchSavefileData = () => {
+    const savefileDir = path.join(process.cwd(), "savefiles");
+
+    // If savefileDir exists
+    if (fs.existsSync(savefileDir)) {
+        // Get all file names
+        try {
+            const fileNames = fs.readdirSync(savefileDir);
+            console.log(fileNames);
+            return fileNames;
+        } catch {
+            console.log("Error reading directory");
+            return;
+        }
+    }
+}
+
+
 // Function for creating main window
 const createMainWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -166,7 +185,11 @@ const createSavefileOpenerWindow = async () => {
 
     await createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
 
-    
+    // Fetch savefile names
+    const savefileNames = fetchSavefileData();
+    if (savefileNames) {
+        createdWindow.webContents.send("load-savefile-names", savefileNames);
+    }
 
     return createdWindow;
 }

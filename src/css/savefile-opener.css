@@ -25,6 +25,10 @@ body {
     padding: 0;
 }
 
+#template-savefile {
+    display: none;
+}
+
 .menu button {
     width: 90%;
     padding: 2px;
