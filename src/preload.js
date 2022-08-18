@@ -38,6 +38,6 @@ contextBridge.exposeInMainWorld("appFileSystem", {
     getTimerAndSplitsData: (callback) => ipcRenderer.on("get-timer-and-splits-data", callback),
 
     // Load savefiles in savefile opener window
-    loadSavefileNames: (callback) => ipcRenderer.on("load-savefile-names", callback),
-    
+    loadSavefileData: (callback) => ipcRenderer.on("load-savefile-data", callback),
+    createWindowFromSavefile: (message, data) => ipcRenderer.invoke("create-window-from-savefile", message, data),
 })

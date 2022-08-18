@@ -18,11 +18,26 @@ const fetchSavefileData = () => {
 
     // If savefileDir exists
     if (fs.existsSync(savefileDir)) {
-        // Get all file names
+        // Get all file names and data
         try {
+            const dataset = {};
             const fileNames = fs.readdirSync(savefileDir);
-            console.log(fileNames);
-            return fileNames;
+
+            if (fileNames.length > 0) {
+                for (const file of fileNames) {
+                    try {
+                        const fileData = fs.readFileSync(path.join(savefileDir, file));
+                        dataset[file] = JSON.parse(fileData);
+                    } catch {
+                        console.log("Error reading file");
+                    }
+                }
+            } else {
+                dataset = null;
+            }
+
+            // Return dataset with file names and data
+            return dataset;
         } catch {
             console.log("Error reading directory");
             return;
@@ -185,10 +200,10 @@ const createSavefileOpenerWindow = async () => {
 
     await createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
 
-    // Fetch savefile names
-    const savefileNames = fetchSavefileData();
-    if (savefileNames) {
-        createdWindow.webContents.send("load-savefile-names", savefileNames);
+    // Fetch savefile data
+    const savefileData = fetchSavefileData();
+    if (savefileData) {
+        createdWindow.webContents.send("load-savefile-data", savefileData);
     }
 
     return createdWindow;
@@ -273,7 +288,7 @@ const handleIpcMessages = () => {
         
         return returnMessage;
     });
-
+    
 
     //--------------------------------------------//
     // File System for creating and loading files //
@@ -297,7 +312,12 @@ const handleIpcMessages = () => {
         });
     });
 
-    // Load a savefile
+    // Create a new window from savefile
+    ipcMain.handle("create-window-from-savefile", (event, message, data) => {
+        if (message === "timer-and-splits") {
+            createdWindow = createTimerAndSplitsWindow(data);
+        }
+    })
 
 }
 

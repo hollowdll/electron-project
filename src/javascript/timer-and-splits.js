@@ -26,6 +26,7 @@ let windowData = {
 // Create PB data after a savefile has been opened if there is a PB
 const createPersonalBestData = () => {
     const splitList = document.querySelector(".split-list");
+    document.getElementById("personal-best-value").innerText = timer.formatTimeToShort(windowData.personalBestTimeMilliseconds);
 
     // Loop through all split elements
     const splitElements = Object.values(splitList.children);
@@ -33,14 +34,11 @@ const createPersonalBestData = () => {
         const splitElemChildren = Object.values(splitElem.children);
         for (const splitData of splitElemChildren) {
             if (splitData.id === "split-time") {
-                // Check if there is a PB time
-                if (windowData.personalBestTimeMilliseconds != null) {
-                    // Reset split times to PB split times
-                    const splitTimeMilliseconds = windowData.personalBestSplitTimes[splitElements.indexOf(splitElem)];
-                    splitData.value = splitTimeMilliseconds;
-                    splitData.innerText = timer.formatTime(splitTimeMilliseconds, true);
-                }
-            } 
+                // Set split times
+                const splitTimeMilliseconds = windowData.personalBestSplitTimes[splitElements.indexOf(splitElem)];
+                splitData.value = splitTimeMilliseconds;
+                splitData.innerText = timer.formatTime(splitTimeMilliseconds, true);
+            }
         }
     }
 }
