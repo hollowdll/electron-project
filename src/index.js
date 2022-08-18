@@ -95,17 +95,8 @@ const createTimerAndSplitsWindow = async (data) => {
                 // Save a file
                 {
                     label: "Save",
-                    click: async () => {
-                        // Get the savefile content
-                        ipcMain.once("send-timer-and-splits-data", (_event, value) => {
-
-                            // Save the file
-                            fs.writeFile(path.join(process.cwd(), "savefiles", "savefile1.json"), value, (err) => {
-                                if (err) return console.log(err);
-                                console.log("File was created succesfully!");
-                            });
-                        });
-
+                    click: () => {
+                        // Get savefile data from the renderer
                         createdWindow.webContents.send("get-timer-and-splits-data");
                     }
                 },
@@ -136,8 +127,6 @@ const createTimerAndSplitsWindow = async (data) => {
         {
             label: 'View',
             submenu: [
-              { role: 'reload' },
-              { role: 'forceReload' },
               { role: 'toggleDevTools' },
             ]
         },
@@ -162,7 +151,7 @@ const createTimerAndSplitsWindow = async (data) => {
     return createdWindow;
 }
 
-const createSavefileOpenerWindow = () => {
+const createSavefileOpenerWindow = async () => {
     const createdWindow = new BrowserWindow({
         width: 600,
         height: 500,
@@ -175,7 +164,9 @@ const createSavefileOpenerWindow = () => {
     createdWindow.setTitle("Open a savefile");
     createdWindow.setBackgroundColor("rgb(155, 155, 155)");
 
-    createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
+    await createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
+
+    
 
     return createdWindow;
 }
@@ -260,8 +251,31 @@ const handleIpcMessages = () => {
         return returnMessage;
     });
 
-    // File System //
+
+    //--------------------------------------------//
+    // File System for creating and loading files //
+    //--------------------------------------------//
     
+    // Get savefile content and create a new savefile
+    ipcMain.on("send-timer-and-splits-data", (_event, savefileValue, savefileName) => {
+        // Create savefiles directory if it doesn't exist
+        const savefilesDir = path.join(process.cwd(), "savefiles");
+        if (!fs.existsSync(savefilesDir)) {
+            fs.mkdirSync(savefilesDir);
+        }
+
+        // Make sure data value is a string
+        if (typeof savefileValue !== "string") savefileValue = "{}";
+
+        // Save the file in JSON format
+        fs.writeFile(path.join(process.cwd(), "savefiles", `${savefileName}.json`), savefileValue, (err) => {
+            if (err) return console.log(err);
+            console.log("File was created succesfully!");
+        });
+    });
+
+    // Load a savefile
+
 }
 
 // Execute after app's ready event. This initializes the app.

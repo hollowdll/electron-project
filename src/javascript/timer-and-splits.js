@@ -48,16 +48,30 @@ const createPersonalBestData = () => {
 
 // Get window data to save a file when main process requests
 window.appFileSystem.getTimerAndSplitsData((event) => {
-    let dataToSend = windowData.dataForSavefile;
+    // Create a deep copy of data
+    let dataToSend = JSON.parse(JSON.stringify(windowData.dataForSavefile));
 
     // Check if window has data
     if (dataToSend != null) {
+        // Name of the savefile
+        let savefileName = "Untitled";
+
+        if (typeof dataToSend.activity === "string" && typeof dataToSend.category === "string") {
+            // Remove all white spaces
+            const activityText = dataToSend.activity.replace(/ /g, "");
+            const categoryText = dataToSend.category.replace(/ /g, "");
+            savefileName = `${activityText}-${categoryText}`;
+        }
+
+        // Get possible PB times
         dataToSend["personalBestTimeMilliseconds"] = windowData.personalBestTimeMilliseconds;
         dataToSend["personalBestSplitTimes"] = windowData.personalBestSplitTimes;
 
-        dataToSend = `${JSON.stringify(dataToSend)}`;
+        // Convert into JSON format. Savefile will be saved in this format
+        dataToSend = `${JSON.stringify(dataToSend, null, "\t")}`;
 
-        event.sender.send("send-timer-and-splits-data", dataToSend);
+        // Send data back to main process
+        event.sender.send("send-timer-and-splits-data", dataToSend, savefileName);
     }
 })
 
