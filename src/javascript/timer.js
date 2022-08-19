@@ -224,6 +224,7 @@ class Timer {
         return timeText;
     }
 
+    // Format time for split time save/loss
     formatTimeToTimeSave(timeInMilliseconds, isNegative) {
         // Check if time is negative
         if (isNegative) {

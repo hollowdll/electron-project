@@ -9,10 +9,10 @@ const fs = require("fs");
 
 // Keep track of app windows
 const appWindowData = {
-    appWindows: {
-        timerAndSplits: [],
-
-    },
+    appWindows: {},
+    keyboardShortcuts: {
+        isGlobalKeyboardShortcutsOn: false,
+    }
 }
 
 // Fetch savefile data
@@ -127,7 +127,7 @@ const createTimerAndSplitsWindow = async (data) => {
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
     
-    // Set window menu
+    // Create Menu for this window
     const menuTemplate = [
         {
             label: "File",
@@ -159,11 +159,17 @@ const createTimerAndSplitsWindow = async (data) => {
                             label: "On",
                             type: "radio",
                             checked: false,
+                            click: () => {
+                                appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn = true;
+                            }
                         },
                         {
                             label: "Off",
                             type: "radio",
                             checked: true,
+                            click: () => {
+                                appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn = false;
+                            }
                         }
                     ]
                 },
@@ -171,6 +177,7 @@ const createTimerAndSplitsWindow = async (data) => {
                     label: "Global Keyboard Shortcut List",
                     submenu: [
                         {
+                            id: "next-split",
                             label: "Next Split",
                             accelerator: "Space",
                         }
@@ -209,8 +216,21 @@ const createTimerAndSplitsWindow = async (data) => {
         }
     ]
 
+    // Set window menu
     const windowMenu = Menu.buildFromTemplate(menuTemplate);
     createdWindow.setMenu(windowMenu);
+
+    // Check if global shortcuts are enabled when this window is created
+    if (appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn) {
+        const item = windowMenu.getMenuItemById("isGlobalKeyboardShortcutsOn");
+        item.checked = true;
+    }
+
+    // Check if global shortcuts are registered
+    if (!globalShortcut.isRegistered("Space")) {
+        // Hide Menu item
+        windowMenu.getMenuItemById("next-split").visible = false;
+    }
 
     // Wait for window contents to load
     await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
@@ -389,14 +409,17 @@ const initApp = () => {
 
     // Register global keyboard shortcuts
     const nextSplitShortcut = globalShortcut.register("Space", () => {
-        const allAppWindows = BrowserWindow.getAllWindows();
+        // Check if global keyboard shortcuts are enabled
+        if (appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn) {
+            const allAppWindows = BrowserWindow.getAllWindows();
 
-        for (const win of allAppWindows) {
-            // Send shortcut request to all windows and let them handle the rest
-            win.webContents.send("global-keyboard-shortcut", "next-split");
+            for (const win of allAppWindows) {
+                // Send shortcut request to all windows and let them handle the rest
+                win.webContents.send("global-keyboard-shortcut", "next-split");
+            }       
         }
     })
-
+    
     // If registration fails or it is already used by another application
     if (!nextSplitShortcut) {
         console.log("Global Keyboard Shortcut registration failed");
