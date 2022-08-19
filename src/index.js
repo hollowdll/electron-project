@@ -8,8 +8,11 @@ const path = require("path");
 const fs = require("fs");
 
 // Keep track of app windows
-let appWindowData = {
-    appWindows: {},
+const appWindowData = {
+    appWindows: {
+        timerAndSplits: [],
+
+    },
 }
 
 // Fetch savefile data
@@ -123,7 +126,7 @@ const createTimerAndSplitsWindow = async (data) => {
     if (typeof data.activity === "string") createdWindow.setTitle(data.activity);
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
-
+    
     // Set window menu
     const menuTemplate = [
         {
@@ -378,7 +381,28 @@ const initApp = () => {
         }
     })
 
+    // Unregister global keyboard shortcuts when app is closed
+    app.on("will-quit", () => {
+        globalShortcut.unregister("Space");
+    })
+
+
     // Register global keyboard shortcuts
+    const nextSplitShortcut = globalShortcut.register("Space", () => {
+        const allAppWindows = BrowserWindow.getAllWindows();
+
+        for (const win of allAppWindows) {
+            // Send shortcut request to all windows and let them handle the rest
+            win.webContents.send("global-keyboard-shortcut", "next-split");
+        }
+    })
+
+    // If registration fails or it is already used by another application
+    if (!nextSplitShortcut) {
+        console.log("Global Keyboard Shortcut registration failed");
+    }
+
+
     /*
     globalShortcut.register("Alt+K", () => {
         // Start/pause timer

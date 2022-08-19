@@ -11,7 +11,8 @@
 // Keyboard shortcut events //
 
 // Timer shortcuts
-window.keyboardShortcuts.onTimerShortcut((event, value) => {
+/*
+window.keyboardShortcuts.onGlobalKeyboardShortcut((event, value) => {
     // Check which timer event is supposed to happen
     if (value === "start/pause") {
         // If timer is running
@@ -25,4 +26,4 @@ window.keyboardShortcuts.onTimerShortcut((event, value) => {
         timer.reset();
     }
 })
-
+*/

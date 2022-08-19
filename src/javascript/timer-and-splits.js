@@ -145,8 +145,8 @@ window.windowCreator.onWindowCreated((event, data) => {
 // Split time functionality //
 //--------------------------//
 
-// Next split button //
-document.getElementById("next-split").addEventListener("click", () => {
+// Move split indicator to next split
+const moveToNextSplit = () => {
     // Make sure there is at least 1 split
     if (windowData.currentSplit && !windowData.isFinished) {
         // Get the split list
@@ -258,10 +258,14 @@ document.getElementById("next-split").addEventListener("click", () => {
         }
 
         // Check splits completed
-        console.log(windowData.splitsCompleted);
-
+        
 
     }
+}
+
+// Next split button //
+document.getElementById("next-split").addEventListener("click", () => {
+    moveToNextSplit();
 })
 
 
@@ -321,5 +325,14 @@ document.getElementById("reset-pb").addEventListener("click", () => {
         windowData.personalBestTimeMilliseconds = null;
         windowData.personalBestSplitTimes = [];
         document.getElementById("personal-best-value").innerText = "--";
+    }
+})
+
+
+// When global keyboard shortcuts are received
+window.keyboardShortcuts.onGlobalKeyboardShortcut((event, message) => {
+    // Next split button
+    if (message === "next-split") {
+        moveToNextSplit();
     }
 })

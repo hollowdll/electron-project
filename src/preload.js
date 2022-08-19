@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld("darkMode", {
 // Expose keyboard shortcut API to the renderer process
 contextBridge.exposeInMainWorld("keyboardShortcuts", {
     // These are event listeners in the renderer process
-    onTimerShortcut: (callback) => ipcRenderer.on("timer-shortcut", callback),
+    onGlobalKeyboardShortcut: (message) => ipcRenderer.on("global-keyboard-shortcut", message),
 })
 
 // Window creating API
