@@ -27,9 +27,12 @@ const fetchSavefileData = () => {
                 for (const file of fileNames) {
                     try {
                         const fileData = fs.readFileSync(path.join(savefileDir, file));
+
+                        // Make sure the data is .json format
                         dataset[file] = JSON.parse(fileData);
-                    } catch {
-                        console.log("Error reading file");
+                    } catch(err) {
+                        // If the data is not .json, throw and handle error
+                        console.log("Error reading file:", err);
                     }
                 }
             } else {
@@ -140,6 +143,35 @@ const createTimerAndSplitsWindow = async (data) => {
                     click: () => {
                         
                     }
+                },
+                {
+                    type: "separator",
+                },
+                // Global keyboard shortcuts
+                {
+                    label: "Toggle Global Keyboard Shortcuts",
+                    submenu: [
+                        {
+                            id: "isGlobalKeyboardShortcutsOn",
+                            label: "On",
+                            type: "radio",
+                            checked: false,
+                        },
+                        {
+                            label: "Off",
+                            type: "radio",
+                            checked: true,
+                        }
+                    ]
+                },
+                {
+                    label: "Global Keyboard Shortcut List",
+                    submenu: [
+                        {
+                            label: "Next Split",
+                            accelerator: "Space",
+                        }
+                    ]
                 }
             ]
         },
@@ -155,6 +187,7 @@ const createTimerAndSplitsWindow = async (data) => {
                 { role: 'delete' },
                 { type: 'separator' },
                 { role: 'selectAll' },
+                { type: 'separator' },
                 { label: "Split Editor" }
             ]
         },
