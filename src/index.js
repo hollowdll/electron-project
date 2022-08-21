@@ -218,6 +218,7 @@ const createTimerWindow = () => {
     createdWindow.setMenu(windowMenu);
 
     createdWindow.setTitle("Timer");
+    createdWindow.setBackgroundColor("rgb(40,40,40)");
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
 
@@ -240,6 +241,7 @@ const createTimerAndSplitsWindow = async (data) => {
     if (typeof data.activity === "string") createdWindow.setTitle(data.activity);
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
+    createdWindow.setBackgroundColor("rgb(40,40,40)");
     
     // Create Menu for this window
     const menuTemplate = [
@@ -323,12 +325,14 @@ const createTimerAndSplitsWindow = async (data) => {
                 { type: 'separator' },
             ]
         },
+        /*
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
+        */
         {
             label: "Window",
             submenu: [
@@ -599,4 +603,3 @@ const initApp = () => {
 
 // Wait for app module's ready event to initialize the app
 app.whenReady().then(initApp);
-

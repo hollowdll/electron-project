@@ -264,7 +264,7 @@ document.getElementById("ok-button").addEventListener("click", () => {
 
 
     // close window
-    // window.close();
+    window.close();
 })
 
 document.getElementById("cancel-button").addEventListener("click", () => {
