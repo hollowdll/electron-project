@@ -108,18 +108,55 @@ const createMainWindow = () => {
         }
     });
 
+    // Create Menu for this window
+    const menuTemplate = [
+        {
+            label: "File",
+            submenu: [
+                { role: "quit" },
+            ]
+        },
+        {
+            label: "Edit",
+            submenu: [
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                { role: 'delete' },
+                { type: 'separator' },
+                { role: 'selectAll' },
+                { type: 'separator' },
+            ]
+        },
+        /*
+        {
+            label: 'View',
+            submenu: [
+              { role: 'toggleDevTools' },
+            ]
+        },
+        */
+        {
+            label: "Window",
+            submenu: [
+                { role: "minimize" },
+                { role: "close" }
+            ]
+        }
+    ]
+
+    // Set window menu
+    const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    mainWindow.setMenu(windowMenu);
+
     // Set window title
     mainWindow.setTitle("Timer Program");
 
-    // Edit topbar menus
-    
-
     // Set background color
     mainWindow.setBackgroundColor("rgb(155, 155, 155)");
-
-    // Set window properties
-    mainWindow.setResizable(false);
-    mainWindow.setFullScreenable(false);
 
     // Show window after the renderer has loaded if not shown yet
     mainWindow.once("ready-to-show", () => {
@@ -128,9 +165,6 @@ const createMainWindow = () => {
 
     // Load the window contents
     mainWindow.loadFile(path.join(__dirname, "index.html"));
-
-    // (Development mode) open DevTools
-    // mainWindow.webContents.openDevTools(); 
 
     return mainWindow;
 }
@@ -144,6 +178,44 @@ const createTimerWindow = () => {
             sandbox: true,
         }
     });
+
+    // Create Menu for this window
+    const menuTemplate = [
+        {
+            label: "Edit",
+            submenu: [
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                { role: 'delete' },
+                { type: 'separator' },
+                { role: 'selectAll' },
+                { type: 'separator' },
+            ]
+        },
+        /*
+        {
+            label: 'View',
+            submenu: [
+              { role: 'toggleDevTools' },
+            ]
+        },
+        */
+        {
+            label: "Window",
+            submenu: [
+                { role: "minimize" },
+                { role: "close" }
+            ]
+        }
+    ]
+
+    // Set window menu
+    const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(windowMenu);
 
     createdWindow.setTitle("Timer");
     createdWindow.setResizable(false);
@@ -168,6 +240,7 @@ const createTimerAndSplitsWindow = async (data) => {
     if (typeof data.activity === "string") createdWindow.setTitle(data.activity);
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
+    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
     
     // Create Menu for this window
     const menuTemplate = [
@@ -177,16 +250,10 @@ const createTimerAndSplitsWindow = async (data) => {
                 // Save a file
                 {
                     label: "Save",
+                    accelerator: "CommandOrControl+S",
                     click: () => {
                         // Get savefile data from the renderer
                         createdWindow.webContents.send("get-timer-and-splits-data");
-                    }
-                },
-                // Open a file
-                {
-                    label: "Open",
-                    click: () => {
-                        
                     }
                 },
                 {
@@ -233,7 +300,7 @@ const createTimerAndSplitsWindow = async (data) => {
                     submenu: [
                         {
                             label: "Next Split",
-                            accelerator: "Space",
+                            accelerator: "CommandOrControl+Space",
                             click: () => {
                                 triggerLocalShortcuts("next-split");
                             }
@@ -255,7 +322,6 @@ const createTimerAndSplitsWindow = async (data) => {
                 { type: 'separator' },
                 { role: 'selectAll' },
                 { type: 'separator' },
-                { label: "Split Editor" }
             ]
         },
         {
@@ -283,14 +349,6 @@ const createTimerAndSplitsWindow = async (data) => {
         item.checked = true;
     }
 
-    /*  Disabled for now
-    // Check if global shortcuts are registered
-    if (!globalShortcut.isRegistered("Alt+Space")) {
-        // Hide Menu item
-        windowMenu.getMenuItemById("next-split").visible = false;
-    }
-    */
-
     // Wait for window contents to load
     await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
 
@@ -310,6 +368,44 @@ const createSavefileOpenerWindow = async () => {
         }
     });
 
+    // Create Menu for this window
+    const menuTemplate = [
+        {
+            label: "Edit",
+            submenu: [
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                { role: 'delete' },
+                { type: 'separator' },
+                { role: 'selectAll' },
+                { type: 'separator' },
+            ]
+        },
+        /*
+        {
+            label: 'View',
+            submenu: [
+              { role: 'toggleDevTools' },
+            ]
+        },
+        */
+        {
+            label: "Window",
+            submenu: [
+                { role: "minimize" },
+                { role: "close" }
+            ]
+        }
+    ]
+
+    // Set window menu
+    const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(windowMenu);
+
     createdWindow.setTitle("Open a savefile");
     createdWindow.setBackgroundColor("rgb(155, 155, 155)");
 
@@ -327,27 +423,59 @@ const createSavefileOpenerWindow = async () => {
 const createSplitEditorWindow = () => {
     const createdWindow = new BrowserWindow({
         width: 600,
-        height: 500,
+        height: 525,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
         }
     });
 
-    // Set menu for this window
-    //createdWindow.setMenu(null);
+    // Create Menu for this window
+    const menuTemplate = [
+        {
+            label: "Edit",
+            submenu: [
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                { role: 'delete' },
+                { type: 'separator' },
+                { role: 'selectAll' },
+                { type: 'separator' },
+            ]
+        },
+        /*
+        {
+            label: 'View',
+            submenu: [
+              { role: 'toggleDevTools' },
+            ]
+        },
+        */
+        {
+            label: "Window",
+            submenu: [
+                { role: "minimize" },
+                { role: "close" }
+            ]
+        }
+    ]
+
+    // Set window menu
+    const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(windowMenu);
 
     createdWindow.setTitle("Split Editor");
-    //createdWindow.setResizable(false);
-    //createdWindow.setFullScreenable(false);
+    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
+    createdWindow.setResizable(false);
+    createdWindow.setFullScreenable(false);
 
     createdWindow.loadFile(path.join(__dirname, "html", "split-editor.html"));
 
     return createdWindow;
-}
-
-const createLayoutEditorWindow = () => {
-
 }
 
 const createSettingsWindow = () => {
@@ -379,12 +507,10 @@ const handleIpcMessages = () => {
         // Create the wanted window
         if (message === "new-timer") {
             createdWindow = createTimerWindow();
-            appWindowData.appWindows["timer"] = createdWindow;
             returnMessage = "New timer";
         }
         else if (message === "new-split-editor") {
             createdWindow = createSplitEditorWindow();
-            appWindowData.appWindows["split-editor"] = createdWindow;
             returnMessage = "New split editor";
         }
         else if (message === "new-timer-and-splits") {

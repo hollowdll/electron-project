@@ -50,8 +50,8 @@ const disableSplitModifierButtons = (result) => {
     document.getElementById("remove-split").disabled = result;
     document.getElementById("rename-split").disabled = result;
     document.getElementById("deselect-split").disabled = result;
-    document.getElementById("move-up").disabled = result;
-    document.getElementById("move-down").disabled = result;
+    //document.getElementById("move-up").disabled = result;
+    //document.getElementById("move-down").disabled = result;
 }
 
 // Function for creating a new split DOM element

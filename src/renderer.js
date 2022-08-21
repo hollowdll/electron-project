@@ -12,7 +12,7 @@
 
 // Timer shortcuts
 /*
-window.keyboardShortcuts.onGlobalKeyboardShortcut((event, value) => {
+window.keyboardShortcuts.onKeyboardShortcut((event, value) => {
     // Check which timer event is supposed to happen
     if (value === "start/pause") {
         // If timer is running
