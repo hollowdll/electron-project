@@ -6,7 +6,6 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>Split Editor</title>
         <link rel="stylesheet" href="../css/split-editor.css">
         
         <script defer src="../javascript/split-editor.js"></script>
@@ -20,16 +19,23 @@
         </div>
 
         <div class="splits">
-            <form id="activity">
-                <p>Activity Name: <input id="activity-name" type="text" size="30"></p>
+            <form id="activity-form">
+                <p><label>Activity Name: </label><input id="activity-name" type="text" placeholder="Add a name for your activity" size="30"></p>
             </form>
-            <form id="category">
-                <p>Category Name: <input id="category-name" type="text" size="30"></p>
+            <form id="category-form">
+                <p><label>Category Name: </label><input id="category-name" type="text" placeholder="Add a category for your activity" size="30"></p>
+            </form>
+            <form id="split-form">
+                <p><label>Split Name: </label><input id="split-name" type="text" placeholder="Add a name for a split" size="30"></p>
             </form>
 
-            <button id="new-split">New Split</button>
-            <button id="remove-split">Remove Split</button>
-            <button id="move-split">Move Split</button>
+            <button id="add-split">Add Split</button>
+            <button id="remove-split" disabled>Remove Split</button>
+            <button id="rename-split" disabled>Rename Split</button>
+            <button id="deselect-split" disabled>Deselect Split</button>
+            <button id="move-up" disabled>Move Up</button>
+            <button id="move-down" disabled>Move Down</button>
+            <button id="select-all" disabled>Select All</button>
 
             <div class="list-of-splits">
                 
@@ -39,34 +45,34 @@
         <div class="customize">
             <div class="customize-left">
                 <form>
-                    <p><label>Activity Name Color: </label><input id="activity-name-color" type="color"></p>
+                    <p><label>Activity Name Color: </label><input id="activity-name-color" type="color" value="#d2d2d2"></p>
                 </form>
                 <form>
-                    <p><label>Category Name Color: </label><input id="category-name-color" type="color"></p>
+                    <p><label>Category Name Color: </label><input id="category-name-color" type="color" value="#d2d2d2"></p>
                 </form>
                 <form>
-                    <p><label>Split Text Color: </label><input id="split-text-color" type="color"></p>
+                    <p><label>Split Text Color: </label><input id="split-text-color" type="color" value="#d2d2d2"></p>
                 </form>
                 <form>
-                    <p><label>Split Time Color: </label><input id="split-time-color" type="color"></p>
+                    <p><label>Split Time Color: </label><input id="split-time-color" type="color" value="#d2d2d2"></p>
                 </form>
                 <form>
-                    <p><label>Split Indicator Color: </label><input id="split-indicator-color" type="color"></p>
+                    <p><label>Split Indicator Color: </label><input id="split-indicator-color" type="color" value="#35849e"></p>
                 </form>
             </div>
 
             <div class="customize-right">
                 <form>
-                    <p><label>Split Time Save Color: </label><input id="split-time-save-color" type="color"></p>
+                    <p><label>Split Time Save Color: </label><input id="split-time-save-color" type="color" value="#9acd32"></p>
                 </form>
                 <form>
-                    <p><label>Split Time Lost Color: </label><input id="split-time-lost-color" type="color"></p>
+                    <p><label>Split Time Lost Color: </label><input id="split-time-lost-color" type="color" value="#ff4b4b"></p>
                 </form>
                 <form>
-                    <p><label>Timer Color: </label><input id="timer-color" type="color"></p>
+                    <p><label>Timer Color: </label><input id="timer-color" type="color" value="#479cb9"></p>
                 </form>
                 <form>
-                    <p><label>Personal Best Time Color: </label><input id="personal-best-time-color" type="color"></p>
+                    <p><label>PB Time Color: </label><input id="personal-best-time-color" type="color" value="#d2d2d2"></p>
                 </form>
             </div>
         </div>

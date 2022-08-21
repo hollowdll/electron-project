@@ -21,11 +21,23 @@ contextBridge.exposeInMainWorld("darkMode", {
 // Expose keyboard shortcut API to the renderer process
 contextBridge.exposeInMainWorld("keyboardShortcuts", {
     // These are event listeners in the renderer process
-    onTimerShortcut: (callback) => ipcRenderer.on("timer-shortcut", callback),
+    onKeyboardShortcut: (message) => ipcRenderer.on("keyboard-shortcut", message),
 })
 
-// Main window API
-contextBridge.exposeInMainWorld("mainWindow", {
-    createNewWindow: (message) => ipcRenderer.invoke("main-window-buttons", message),
+// Window creating API
+contextBridge.exposeInMainWorld("windowCreator", {
+    createNewWindow: (message, data) => ipcRenderer.invoke("create-new-window", message, data),
+    onWindowCreated: (callback) => ipcRenderer.on("new-window-created", callback),
+    
+})
 
+// App file system API
+contextBridge.exposeInMainWorld("appFileSystem", {
+    // Request renderers to send window data to main process to save a file
+    getTimerData: (callback) => ipcRenderer.on("get-timer-data", callback),
+    getTimerAndSplitsData: (callback) => ipcRenderer.on("get-timer-and-splits-data", callback),
+
+    // Load savefiles in savefile opener window
+    loadSavefileData: (callback) => ipcRenderer.on("load-savefile-data", callback),
+    createWindowFromSavefile: (message, data) => ipcRenderer.invoke("create-window-from-savefile", message, data),
 })

@@ -6,15 +6,41 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>Timer and Splits</title>
-        <link rel="stylesheet" href="../css/timer-and-splits.css">
+        <link rel="stylesheet" href="../css/timer-and-splits-dark.css">
 
-        
-        
+        <script defer src="../javascript/timer-and-splits.js"></script>
+        <script defer src="../javascript/timer.js"></script>
     </head>
 
     <body>
-        
+        <div class="layout">
+            <div class="top">
+                <p id="activity">Activity here</p>
+                <p id="category">Category here</p>
+            </div>
+            
+            <div class="split-list">
+                <p id="split-holder">
+                    <label id="split-name">Split Name</label>
+                    <label id="split-time-save">--</label>
+                    <label id="split-time">--</label>
+                </p>
+            </div>
 
+            <p id="timer-label">0.00</p>
+
+            <div class="timer-buttons">
+                <button id="start-button">Start</button>
+                <button id="pause-button">Pause</button>
+                <button id="reset-button">Reset</button>
+            </div>
+
+            <div class="split-time-buttons">
+                <button id="next-split">Next Split</button>
+                <button id="reset-pb">Reset PB</button>
+            </div>
+
+            <p id="personal-best">Personal Best: <span id="personal-best-value">--</span></p>
+        </div>
     </body>
 </html>

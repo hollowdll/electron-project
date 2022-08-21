@@ -4,13 +4,15 @@
 
 // This file is the main javascript file of the renderer process //
 
+"use strict";
 
 // Handle IPC messages from the main process //
 
 // Keyboard shortcut events //
 
 // Timer shortcuts
-window.keyboardShortcuts.onTimerShortcut((event, value) => {
+/*
+window.keyboardShortcuts.onKeyboardShortcut((event, value) => {
     // Check which timer event is supposed to happen
     if (value === "start/pause") {
         // If timer is running
@@ -24,4 +26,4 @@ window.keyboardShortcuts.onTimerShortcut((event, value) => {
         timer.reset();
     }
 })
-
+*/

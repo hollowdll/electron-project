@@ -2,10 +2,13 @@ body {
     overflow-y: hidden;
     overflow-x: hidden;
     font-family: sans-serif;
+    background-color: rgb(40,40,40);
+    color: #d2d2d2;
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
 }
 
 .top {
-    background-color: rgb(220,220,220);
+    background-color: rgb(80,80,80);
 }
 
 #activity, #category {
@@ -34,7 +37,7 @@ body {
 
 
 #split-holder {
-    background-color: rgb(200,200,200);
+    background-color: rgb(80,80,80);
     padding: 2px;
     margin: 0;
     margin-bottom: 3px;
@@ -112,11 +115,11 @@ body {
 }
 
 #reset-button {
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(100, 100, 100);
 }
 
 #reset-button:hover {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(70, 70, 70);
 }
 
 

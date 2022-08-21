@@ -1,16 +1,4 @@
-
-
-/* Splits */
-
-.splits {
-    text-align: center;
-    
-}
-
-.splits button {
-    margin: 3px;
-    width: 100px;
-}
+/* Top bar */
 
 .top-bar {
     display: block;
@@ -26,16 +14,45 @@
 
 .top-bar button:hover {
     background-color: rgb(180,180,180);
+}
 
+
+
+/* Splits */
+
+.splits  {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.splits button {
+    margin: 3px;
+    width: 100px;
+}
+
+.splits input:focus {
+    outline: none;
 }
 
 .list-of-splits {
-    background-color: rgb(220,220,220);
+    background-color: rgb(200,200,200);
     width: 75%;
-    height: 200px;
+    height: 150px;
     margin-right: auto;
     margin-left: auto;
     margin-top: 15px;
+    overflow-y: auto;
+}
+
+.list-of-splits p {
+    margin: 0;
+}
+
+.list-of-splits button {
+    width: 95%;
+    padding: 3px;
+    border-width: 1px;
+    background-color: rgb(240,240,240);
 }
 
 .ok-and-cancel {
@@ -56,6 +73,7 @@
 
 .customize {
     display: none;
+    font-family: sans-serif;
 }
 
 .customize label {
@@ -73,3 +91,11 @@
     position: absolute;
     right: 30px;
 }
+
+.customize input {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    margin: 0;
+}
+
