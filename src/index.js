@@ -52,6 +52,41 @@ const fetchSavefileData = () => {
 }
 
 
+// Register global shortcuts
+const registerGlobalShortcuts = () => {
+    const nextSplitShortcut = globalShortcut.register("Space", () => {
+        // Check if global keyboard shortcuts are enabled
+        if (appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn) {
+            const allAppWindows = BrowserWindow.getAllWindows();
+
+            for (const win of allAppWindows) {
+                // Send shortcut request to all windows and let them handle the rest
+                win.webContents.send("global-keyboard-shortcut", "next-split");
+            }       
+        }
+    })
+
+    // If registration fails or it is already used by another application
+    if (!nextSplitShortcut) {
+        console.log("Global Keyboard Shortcut registration failed");
+    }
+}
+
+// Unregister global shortcuts
+const unregisterGlobalShortcuts = () => {
+    // Next split button
+    if (globalShortcut.isRegistered("Space")) {
+        globalShortcut.unregister("Space");
+    }
+}
+
+
+// Register local shortcuts
+const registerLocalShortcuts = () => {
+
+}
+
+
 // Function for creating main window
 const createMainWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -161,6 +196,7 @@ const createTimerAndSplitsWindow = async (data) => {
                             checked: false,
                             click: () => {
                                 appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn = true;
+                                registerGlobalShortcuts();
                             }
                         },
                         {
@@ -169,6 +205,7 @@ const createTimerAndSplitsWindow = async (data) => {
                             checked: true,
                             click: () => {
                                 appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn = false;
+                                unregisterGlobalShortcuts();
                             }
                         }
                     ]
@@ -403,40 +440,9 @@ const initApp = () => {
 
     // Unregister global keyboard shortcuts when app is closed
     app.on("will-quit", () => {
-        globalShortcut.unregister("Space");
-    })
-
-
-    // Register global keyboard shortcuts
-    const nextSplitShortcut = globalShortcut.register("Space", () => {
-        // Check if global keyboard shortcuts are enabled
-        if (appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn) {
-            const allAppWindows = BrowserWindow.getAllWindows();
-
-            for (const win of allAppWindows) {
-                // Send shortcut request to all windows and let them handle the rest
-                win.webContents.send("global-keyboard-shortcut", "next-split");
-            }       
-        }
+        unregisterGlobalShortcuts();
     })
     
-    // If registration fails or it is already used by another application
-    if (!nextSplitShortcut) {
-        console.log("Global Keyboard Shortcut registration failed");
-    }
-
-
-    /*
-    globalShortcut.register("Alt+K", () => {
-        // Start/pause timer
-        appWindows.mainWindow.webContents.send("timer-shortcut", "start/pause");
-    })
-
-    globalShortcut.register("Alt+R", () => {
-        // Reset timer
-        appWindows.mainWindow.webContents.send("timer-shortcut", "reset");
-    })
-    */
 
     // Do checks if necessary
     console.log("Node version:", process.versions["node"]);
