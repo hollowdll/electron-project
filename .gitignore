@@ -134,3 +134,6 @@ generated_files/test_files/
 
 # savefiles
 savefiles/
+
+# app settings
+app_settings/
