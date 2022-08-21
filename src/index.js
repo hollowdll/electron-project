@@ -228,7 +228,7 @@ const createTimerWindow = () => {
 
 const createTimerAndSplitsWindow = async (data) => {
     const createdWindow = new BrowserWindow({
-        width: 350,
+        width: 375,
         height: 550,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
@@ -240,7 +240,6 @@ const createTimerAndSplitsWindow = async (data) => {
     if (typeof data.activity === "string") createdWindow.setTitle(data.activity);
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
-    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
     
     // Create Menu for this window
     const menuTemplate = [

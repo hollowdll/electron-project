@@ -247,6 +247,7 @@ document.getElementById("ok-button").addEventListener("click", () => {
             categoryColor: document.getElementById("category-name-color").value,
             splitTextColor: document.getElementById("split-text-color").value,
             splitTimeColor: document.getElementById("split-time-color").value,
+
             splitIndicatorColor: document.getElementById("split-indicator-color").value,
             splitTimeSaveColor: document.getElementById("split-time-save-color").value,
             splitTimeLostColor: document.getElementById("split-time-lost-color").value,

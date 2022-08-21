@@ -7,7 +7,7 @@
 // Track data of this window and splits
 let windowData = {
     colors: {
-        splitBackground: "rgb(200,200,200)",
+        splitBackground: "rgb(80,80,80)",
         splitTimeText: null,
         splitTimeSave: null,
         splitTimeLost: null,
@@ -187,13 +187,13 @@ const moveToNextSplit = () => {
                         child.innerText = timeSaveText;
 
                         // Assign the right text color
-                        /*
+                        
                         if (isNegative) {
                             child.style.color = windowData.colors.splitTimeSave;
                         } else {
                             child.style.color = windowData.colors.splitTimeLost;
                         }
-                        */
+                        
                     }
                 }
             }

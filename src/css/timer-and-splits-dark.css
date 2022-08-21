@@ -1,0 +1,167 @@
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-family: sans-serif;
+    background-color: rgb(40,40,40);
+    color: #d2d2d2;
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
+}
+
+.top {
+    background-color: rgb(80,80,80);
+}
+
+#activity, #category {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+.split-list {
+    position: relative;
+    width: 100%;
+    height: 175px;
+    margin-top: 3px;
+    overflow-y: auto;
+}
+
+/* Hide scrollbar */
+
+.split-list::-webkit-scrollbar {
+    display: none;
+}
+
+
+#split-holder {
+    background-color: rgb(80,80,80);
+    padding: 2px;
+    margin: 0;
+    margin-bottom: 3px;
+    display: none;
+}
+
+#split-name {
+    float: left;
+    width: 190px;
+    margin-left: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#split-time {
+    float: right;
+    font-weight: bold;
+}
+
+#split-time-save {
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+
+
+/* Timer */
+
+#timer-label {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: rgb(71, 156, 185);
+    /* Text border */
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
+    
+    /* text-shadow: 1px 0 black, 1px 1px black; */
+}
+
+.timer-buttons {
+    text-align: center;
+}
+
+.timer-buttons button {
+    margin: 2px;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    width: 80px;
+    border-radius: 5px;
+}
+
+/* Timer buttons */
+
+#start-button {
+    background-color: rgb(0, 130, 0);
+}
+
+#start-button:hover {
+    background-color: rgb(0, 90, 0);
+}
+
+#pause-button {
+    background-color: rgb(255, 0, 0);
+}
+
+#pause-button:hover {
+    background-color: rgb(200, 0, 0);
+}
+
+#reset-button {
+    background-color: rgb(100, 100, 100);
+}
+
+#reset-button:hover {
+    background-color: rgb(70, 70, 70);
+}
+
+
+/* Split Time Buttons */
+.split-time-buttons {
+    display: block;
+    text-align: center;
+}
+
+.split-time-buttons button {
+    padding: 5px;
+    margin: 2px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#next-split {
+    background-color: rgb(255,165,0);
+}
+
+#next-split:hover {
+    background-color: rgb(210,125,0);
+}
+
+#reset-pb {
+    background-color: rgb(150,150,150);
+}
+
+#reset-pb:hover {
+    background-color: rgb(110,110,110);
+}
+
+
+/* Bottom display */
+
+#personal-best {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}

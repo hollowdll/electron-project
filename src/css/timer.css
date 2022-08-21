@@ -45,9 +45,9 @@
 }
 
 #reset-button {
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(100, 100, 100);
 }
 
 #reset-button:hover {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(70, 70, 70);
 }
