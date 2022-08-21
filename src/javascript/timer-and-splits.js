@@ -329,10 +329,11 @@ document.getElementById("reset-pb").addEventListener("click", () => {
 })
 
 
-// When global keyboard shortcuts are received
-window.keyboardShortcuts.onGlobalKeyboardShortcut((event, message) => {
+// When keyboard shortcuts are received
+window.keyboardShortcuts.onKeyboardShortcut((event, message) => {
     // Next split button
     if (message === "next-split") {
         moveToNextSplit();
     }
 })
+

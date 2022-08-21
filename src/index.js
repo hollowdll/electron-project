@@ -54,14 +54,14 @@ const fetchSavefileData = () => {
 
 // Register global shortcuts
 const registerGlobalShortcuts = () => {
-    const nextSplitShortcut = globalShortcut.register("Space", () => {
+    const nextSplitShortcut = globalShortcut.register("CommandOrControl+Space", () => {
         // Check if global keyboard shortcuts are enabled
         if (appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn) {
             const allAppWindows = BrowserWindow.getAllWindows();
 
             for (const win of allAppWindows) {
                 // Send shortcut request to all windows and let them handle the rest
-                win.webContents.send("global-keyboard-shortcut", "next-split");
+                win.webContents.send("keyboard-shortcut", "next-split");
             }       
         }
     })
@@ -75,15 +75,22 @@ const registerGlobalShortcuts = () => {
 // Unregister global shortcuts
 const unregisterGlobalShortcuts = () => {
     // Next split button
-    if (globalShortcut.isRegistered("Space")) {
-        globalShortcut.unregister("Space");
+    if (globalShortcut.isRegistered("CommandOrControl+Space")) {
+        globalShortcut.unregister("CommandOrControl+Space");
     }
 }
 
+// Trigger local shortcuts
+const triggerLocalShortcuts = (shortcut) => {
+    // Check if global keyboard shortcuts are disabled
+    if (!appWindowData.keyboardShortcuts.isGlobalKeyboardShortcutsOn) {
+        const allAppWindows = BrowserWindow.getAllWindows();
 
-// Register local shortcuts
-const registerLocalShortcuts = () => {
-
+        for (const win of allAppWindows) {
+            // Send shortcut request to all windows and let them handle the rest
+            win.webContents.send("keyboard-shortcut", shortcut);
+        }       
+    }
 }
 
 
@@ -185,13 +192,14 @@ const createTimerAndSplitsWindow = async (data) => {
                 {
                     type: "separator",
                 },
-                // Global keyboard shortcuts
+
+                // Keyboard shortcuts //
                 {
-                    label: "Toggle Global Keyboard Shortcuts",
+                    label: "Toggle Keyboard Shortcuts",
                     submenu: [
                         {
                             id: "isGlobalKeyboardShortcutsOn",
-                            label: "On",
+                            label: "Global",
                             type: "radio",
                             checked: false,
                             click: () => {
@@ -200,7 +208,7 @@ const createTimerAndSplitsWindow = async (data) => {
                             }
                         },
                         {
-                            label: "Off",
+                            label: "Local",
                             type: "radio",
                             checked: true,
                             click: () => {
@@ -216,7 +224,19 @@ const createTimerAndSplitsWindow = async (data) => {
                         {
                             id: "next-split",
                             label: "Next Split",
+                            accelerator: "CommandOrControl+Space",
+                        }
+                    ]
+                },
+                {
+                    label: "Local Keyboard Shortcut List",
+                    submenu: [
+                        {
+                            label: "Next Split",
                             accelerator: "Space",
+                            click: () => {
+                                triggerLocalShortcuts("next-split");
+                            }
                         }
                     ]
                 }
@@ -263,11 +283,13 @@ const createTimerAndSplitsWindow = async (data) => {
         item.checked = true;
     }
 
+    /*  Disabled for now
     // Check if global shortcuts are registered
-    if (!globalShortcut.isRegistered("Space")) {
+    if (!globalShortcut.isRegistered("Alt+Space")) {
         // Hide Menu item
         windowMenu.getMenuItemById("next-split").visible = false;
     }
+    */
 
     // Wait for window contents to load
     await createdWindow.loadFile(path.join(__dirname, "html", "timer-and-splits.html"));
