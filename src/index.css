@@ -1,3 +1,7 @@
+body {
+    font-family: sans-serif;
+}
+
 .app-description {
     display: block;
     width: 50%;
@@ -9,7 +13,6 @@
 }
 
 .app-description label {
-    font-family: sans-serif;
     font-weight: bold;
     font-size: 30px;
 }
@@ -36,7 +39,6 @@
 
 .app-menu button:hover {
     background-color: rgb(200,200,200);
-    
 }
 
 #version {
@@ -45,5 +47,5 @@
     bottom: 0;
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 18px;
 }
