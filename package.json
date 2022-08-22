@@ -37,7 +37,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "timer-program"
+            "name": "timer-project"
           }
         },
         {

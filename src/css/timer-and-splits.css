@@ -9,6 +9,7 @@ body {
 }
 
 #activity, #category {
+    font-weight: bold;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
@@ -42,6 +43,7 @@ body {
 }
 
 #split-name {
+    font-weight: bold;
     float: left;
     width: 190px;
     margin-left: 2px;

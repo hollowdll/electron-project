@@ -7,6 +7,8 @@ body {
     text-align: center;
     overflow-x: hidden;
     overflow-y: auto;
+    color: #d2d2d2;
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
 }
 
 .title {
@@ -40,8 +42,11 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #d2d2d2;
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
+    background-color: rgb(80,80,80);
 }
 
 .menu button:hover {
-    background-color: rgb(200,200,200);
+    background-color: rgb(110,110,110);
 }

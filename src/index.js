@@ -131,14 +131,15 @@ const createMainWindow = () => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
+              { role: "reload" },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
@@ -156,7 +157,7 @@ const createMainWindow = () => {
     mainWindow.setTitle("Timer Program");
 
     // Set background color
-    mainWindow.setBackgroundColor("rgb(155, 155, 155)");
+    mainWindow.setBackgroundColor("rgb(40,40,40)");
 
     // Show window after the renderer has loaded if not shown yet
     mainWindow.once("ready-to-show", () => {
@@ -196,14 +197,14 @@ const createTimerWindow = () => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
@@ -325,14 +326,14 @@ const createTimerAndSplitsWindow = async (data) => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
@@ -388,14 +389,14 @@ const createSavefileOpenerWindow = async () => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
@@ -410,7 +411,7 @@ const createSavefileOpenerWindow = async () => {
     createdWindow.setMenu(windowMenu);
 
     createdWindow.setTitle("Open a savefile");
-    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
+    createdWindow.setBackgroundColor("rgb(40,40,40)");
 
     await createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
 
@@ -450,14 +451,14 @@ const createSplitEditorWindow = () => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
