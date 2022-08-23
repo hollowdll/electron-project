@@ -1,3 +1,25 @@
+/* UI text colors */
+button, label {
+    font-family: sans-serif;
+    color: #d2d2d2;
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
+}
+
+/* All buttons */
+button {
+    background-color: rgb(80,80,80);
+    border: solid 1px rgb(20,20,20);
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+button:hover {
+    background-color: rgb(110,110,110);
+}
+
+
 /* Top bar */
 
 .top-bar {
@@ -6,14 +28,14 @@
 }
 
 .top-bar button {
-    padding: 5px;
-    font-size: 16px;
-    border-width: 1px;
-    width: 275px;
+    padding: 3px;
+    font-size: 20px;
+    width: 48%;
+    font-weight: bold;
 }
 
 .top-bar button:hover {
-    background-color: rgb(180,180,180);
+    background-color: rgb(110,110,110);
 }
 
 
@@ -30,12 +52,16 @@
     width: 100px;
 }
 
+.splits input {
+    background-color: rgb(200,200,200);
+}
+
 .splits input:focus {
     outline: none;
 }
 
 .list-of-splits {
-    background-color: rgb(200,200,200);
+    background-color: rgb(40,40,40);
     width: 75%;
     height: 150px;
     margin-right: auto;
@@ -51,8 +77,13 @@
 .list-of-splits button {
     width: 95%;
     padding: 3px;
-    border-width: 1px;
-    background-color: rgb(240,240,240);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.list-of-splits button:hover {
+    background-color: rgb(80,80,80);
 }
 
 .ok-and-cancel {
@@ -64,6 +95,7 @@
 
 .ok-and-cancel button {
     margin: 3px;
+    padding: 2px;
     width: 70px;
 }
 
@@ -98,4 +130,3 @@
     padding: 0;
     margin: 0;
 }
-

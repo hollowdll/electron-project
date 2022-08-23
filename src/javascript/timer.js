@@ -37,7 +37,7 @@ class Timer {
                 }
                 
                 // Use setInterval to start the timer
-                this.timeCounter = window.setInterval(countTime, 25);
+                this.timeCounter = window.setInterval(countTime, 17);   // Aim for about 60 updates per second (might vary, not always the same)
                 console.log("Timer started!");
             }
         }

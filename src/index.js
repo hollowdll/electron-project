@@ -9,7 +9,9 @@ const fs = require("fs");
 
 // Keep track of app windows
 const appWindowData = {
-    appWindows: {},
+    appWindows: {
+        mainWindow: null,
+    },
     keyboardShortcuts: {
         isGlobalKeyboardShortcutsOn: false,
     }
@@ -364,6 +366,7 @@ const createTimerAndSplitsWindow = async (data) => {
 
 const createSavefileOpenerWindow = async () => {
     const createdWindow = new BrowserWindow({
+        // parent: appWindowData.appWindows.mainWindow,
         width: 600,
         height: 500,
         webPreferences: {
@@ -426,6 +429,7 @@ const createSavefileOpenerWindow = async () => {
 
 const createSplitEditorWindow = () => {
     const createdWindow = new BrowserWindow({
+        // parent: appWindowData.appWindows.mainWindow,
         width: 600,
         height: 525,
         webPreferences: {
@@ -473,7 +477,7 @@ const createSplitEditorWindow = () => {
     createdWindow.setMenu(windowMenu);
 
     createdWindow.setTitle("Split Editor");
-    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
+    createdWindow.setBackgroundColor("rgb(40,40,40)");
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
 
@@ -568,13 +572,12 @@ const handleIpcMessages = () => {
 
 // Execute after app's ready event. This initializes the app.
 const initApp = () => {
-    
-
     // Handle IPC messages from the renderer process
     handleIpcMessages();
 
     // Create main window
     const mainWindow = createMainWindow();
+    appWindowData.appWindows.mainWindow = mainWindow;
 
     // (macOS) If no windows are open, then create one
     app.on("activate", () => {
