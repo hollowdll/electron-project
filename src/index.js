@@ -410,8 +410,8 @@ const createSavefileOpenerWindow = async () => {
     ]
 
     // Set window menu
-    const windowMenu = Menu.buildFromTemplate(menuTemplate);
-    createdWindow.setMenu(windowMenu);
+    // const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(null);
 
     createdWindow.setTitle("Open a savefile");
     createdWindow.setBackgroundColor("rgb(40,40,40)");
@@ -431,7 +431,7 @@ const createSplitEditorWindow = () => {
     const createdWindow = new BrowserWindow({
         // parent: appWindowData.appWindows.mainWindow,
         width: 600,
-        height: 525,
+        height: 500,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
@@ -473,8 +473,8 @@ const createSplitEditorWindow = () => {
     ]
 
     // Set window menu
-    const windowMenu = Menu.buildFromTemplate(menuTemplate);
-    createdWindow.setMenu(windowMenu);
+    // const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(null);
 
     createdWindow.setTitle("Split Editor");
     createdWindow.setBackgroundColor("rgb(40,40,40)");
@@ -488,6 +488,10 @@ const createSplitEditorWindow = () => {
 
 const createSettingsWindow = () => {
 
+}
+
+const createHowToUseWindow = () => {
+    
 }
 
 

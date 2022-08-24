@@ -361,4 +361,3 @@ window.keyboardShortcuts.onKeyboardShortcut((event, message) => {
         moveToNextSplit();
     }
 })
-
