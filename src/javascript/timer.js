@@ -9,7 +9,7 @@ class Timer {
         // Variables used by the timer
         this.startTime = 0;
         this.timeElapsed = 0;
-        this.timeCounter = undefined;
+        this.timeCounter = null;
         this.canReset = false;
         this.isRunning = false;
 
