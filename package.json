@@ -1,10 +1,10 @@
 {
   "name": "timer-project",
   "version": "1.0.0",
-  "description": "timer project",
+  "description": "timer-project",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "electron .",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
