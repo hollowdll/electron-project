@@ -4,7 +4,7 @@
 
 // Can access DOM APIs + node.js
 // Main process cannot access DOM APIs like window and document
-// so we need to attach this script to the renderer process to use them
+// We need to attach this script to the renderer process to access them via Inter Process Communication (IPC)
 
 // Read more about preload.js file:
 // https://www.electronjs.org/docs/latest/tutorial/tutorial-preload
@@ -12,13 +12,15 @@
 
 const { contextBridge, ipcRenderer } = require("electron");
 
-// Expose dark mode API to renderer's window object
+// Dark mode API
+/*  Disabled
 contextBridge.exposeInMainWorld("darkMode", {
     toggle: () => ipcRenderer.invoke("dark-mode:toggle"),
     system: () => ipcRenderer.invoke("dark-mode:system"),
 })
+*/
 
-// Expose keyboard shortcut API to the renderer process
+// Keyboard shortcut API
 contextBridge.exposeInMainWorld("keyboardShortcuts", {
     // These are event listeners in the renderer process
     onKeyboardShortcut: (message) => ipcRenderer.on("keyboard-shortcut", message),

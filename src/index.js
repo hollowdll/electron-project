@@ -133,7 +133,7 @@ const createMainWindow = () => {
                 { type: 'separator' },
             ]
         },
-        
+        /*
         {
             label: 'View',
             submenu: [
@@ -141,7 +141,7 @@ const createMainWindow = () => {
               { role: "reload" },
             ]
         },
-        
+        */
         {
             label: "Window",
             submenu: [
@@ -199,14 +199,14 @@ const createTimerWindow = () => {
                 { type: 'separator' },
             ]
         },
-        
+        /*
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        
+        */
         {
             label: "Window",
             submenu: [
@@ -328,14 +328,14 @@ const createTimerAndSplitsWindow = async (data) => {
                 { type: 'separator' },
             ]
         },
-        
+        /*
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        
+        */
         {
             label: "Window",
             submenu: [
@@ -376,6 +376,7 @@ const createSavefileOpenerWindow = async () => {
     });
 
     // Create Menu for this window
+    /*
     const menuTemplate = [
         {
             label: "Edit",
@@ -408,6 +409,7 @@ const createSavefileOpenerWindow = async () => {
             ]
         }
     ]
+    */
 
     // Set window menu
     // const windowMenu = Menu.buildFromTemplate(menuTemplate);
@@ -439,6 +441,7 @@ const createSplitEditorWindow = () => {
     });
 
     // Create Menu for this window
+    /*
     const menuTemplate = [
         {
             label: "Edit",
@@ -471,6 +474,7 @@ const createSplitEditorWindow = () => {
             ]
         }
     ]
+    */
 
     // Set window menu
     // const windowMenu = Menu.buildFromTemplate(menuTemplate);
@@ -498,6 +502,7 @@ const createHowToUseWindow = () => {
 // Function for handling IPC messages from the renderer process
 const handleIpcMessages = () => {
     // Dark mode //
+    /*
     ipcMain.handle("dark-mode:toggle", () => {
         if (nativeTheme.shouldUseDarkColors) {
             nativeTheme.themeSource = 'light';
@@ -510,6 +515,7 @@ const handleIpcMessages = () => {
     ipcMain.handle("dark-mode:system", () => {
         nativeTheme.themeSource = "system";
     });
+    */
 
     // Create new windows //
     ipcMain.handle("create-new-window", (event, message, data) => {
