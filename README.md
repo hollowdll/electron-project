@@ -6,7 +6,7 @@ Development is focused on Windows systems.
 Current version: 1.0.0
 
 Application features:
-- Create multiple timers
+- Create multiple timers with millisecond accuracy
 - Split editor to create splits for speedrunning
 - Personal Bests with time save/loss tracking
 - Savefiles that are integrated into the app (No File Explorer needed)
