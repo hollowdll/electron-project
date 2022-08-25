@@ -9,7 +9,9 @@ const fs = require("fs");
 
 // Keep track of app windows
 const appWindowData = {
-    appWindows: {},
+    appWindows: {
+        mainWindow: null,
+    },
     keyboardShortcuts: {
         isGlobalKeyboardShortcutsOn: false,
     }
@@ -136,6 +138,7 @@ const createMainWindow = () => {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
+              { role: "reload" },
             ]
         },
         */
@@ -156,7 +159,7 @@ const createMainWindow = () => {
     mainWindow.setTitle("Timer Program");
 
     // Set background color
-    mainWindow.setBackgroundColor("rgb(155, 155, 155)");
+    mainWindow.setBackgroundColor("rgb(40,40,40)");
 
     // Show window after the renderer has loaded if not shown yet
     mainWindow.once("ready-to-show", () => {
@@ -363,6 +366,7 @@ const createTimerAndSplitsWindow = async (data) => {
 
 const createSavefileOpenerWindow = async () => {
     const createdWindow = new BrowserWindow({
+        // parent: appWindowData.appWindows.mainWindow,
         width: 600,
         height: 500,
         webPreferences: {
@@ -372,6 +376,7 @@ const createSavefileOpenerWindow = async () => {
     });
 
     // Create Menu for this window
+    /*
     const menuTemplate = [
         {
             label: "Edit",
@@ -388,14 +393,14 @@ const createSavefileOpenerWindow = async () => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
@@ -404,13 +409,14 @@ const createSavefileOpenerWindow = async () => {
             ]
         }
     ]
+    */
 
     // Set window menu
-    const windowMenu = Menu.buildFromTemplate(menuTemplate);
-    createdWindow.setMenu(windowMenu);
+    // const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(null);
 
     createdWindow.setTitle("Open a savefile");
-    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
+    createdWindow.setBackgroundColor("rgb(40,40,40)");
 
     await createdWindow.loadFile(path.join(__dirname, "html", "savefile-opener.html"));
 
@@ -425,8 +431,9 @@ const createSavefileOpenerWindow = async () => {
 
 const createSplitEditorWindow = () => {
     const createdWindow = new BrowserWindow({
+        // parent: appWindowData.appWindows.mainWindow,
         width: 600,
-        height: 525,
+        height: 500,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             sandbox: true,
@@ -434,6 +441,7 @@ const createSplitEditorWindow = () => {
     });
 
     // Create Menu for this window
+    /*
     const menuTemplate = [
         {
             label: "Edit",
@@ -450,14 +458,14 @@ const createSplitEditorWindow = () => {
                 { type: 'separator' },
             ]
         },
-        /*
+        
         {
             label: 'View',
             submenu: [
               { role: 'toggleDevTools' },
             ]
         },
-        */
+        
         {
             label: "Window",
             submenu: [
@@ -466,13 +474,14 @@ const createSplitEditorWindow = () => {
             ]
         }
     ]
+    */
 
     // Set window menu
-    const windowMenu = Menu.buildFromTemplate(menuTemplate);
-    createdWindow.setMenu(windowMenu);
+    // const windowMenu = Menu.buildFromTemplate(menuTemplate);
+    createdWindow.setMenu(null);
 
     createdWindow.setTitle("Split Editor");
-    createdWindow.setBackgroundColor("rgb(155, 155, 155)");
+    createdWindow.setBackgroundColor("rgb(40,40,40)");
     createdWindow.setResizable(false);
     createdWindow.setFullScreenable(false);
 
@@ -485,10 +494,15 @@ const createSettingsWindow = () => {
 
 }
 
+const createHowToUseWindow = () => {
+    
+}
+
 
 // Function for handling IPC messages from the renderer process
 const handleIpcMessages = () => {
     // Dark mode //
+    /*
     ipcMain.handle("dark-mode:toggle", () => {
         if (nativeTheme.shouldUseDarkColors) {
             nativeTheme.themeSource = 'light';
@@ -501,6 +515,7 @@ const handleIpcMessages = () => {
     ipcMain.handle("dark-mode:system", () => {
         nativeTheme.themeSource = "system";
     });
+    */
 
     // Create new windows //
     ipcMain.handle("create-new-window", (event, message, data) => {
@@ -567,13 +582,12 @@ const handleIpcMessages = () => {
 
 // Execute after app's ready event. This initializes the app.
 const initApp = () => {
-    
-
     // Handle IPC messages from the renderer process
     handleIpcMessages();
 
     // Create main window
     const mainWindow = createMainWindow();
+    appWindowData.appWindows.mainWindow = mainWindow;
 
     // (macOS) If no windows are open, then create one
     app.on("activate", () => {

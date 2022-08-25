@@ -8,6 +8,7 @@
 let windowData = {
     colors: {
         splitBackground: "rgb(80,80,80)",
+        splitBackground2: "rgb(60,60,60)",
         splitTimeText: null,
         splitTimeSave: null,
         splitTimeLost: null,
@@ -103,6 +104,9 @@ window.windowCreator.onWindowCreated((event, data) => {
     if (data.splits.length > 0) {
         // Get the template split
         const splitElemTemplate = document.getElementById("split-holder");
+        
+        // Get the split list
+        const splitList = document.querySelector(".split-list");
 
         for (let i = 0; i < data.splits.length; i++) {
             const splitElem = splitElemTemplate.cloneNode(true);
@@ -120,14 +124,23 @@ window.windowCreator.onWindowCreated((event, data) => {
                 }
             }
     
-            document.querySelector(".split-list").appendChild(splitElem);
+            splitList.appendChild(splitElem);
+            
+            // Get the order of the newly created split
+            const splitOrder = Object.values(splitList.children).length - 1;   // Decrease the hidden template split
+            
+            // Check if this split's order number is even
+            if (splitOrder % 2 == 0) {
+                splitElem.style["background-color"] = windowData.colors.splitBackground2;
+                splitElem.value = "order=even";
+            }
         }
 
         // Delete the template split
         splitElemTemplate.remove();
 
         // Make the first split current split
-        windowData.currentSplit = document.querySelector(".split-list").firstElementChild;
+        windowData.currentSplit = splitList.firstElementChild;
         windowData.currentSplit.style["background-color"] = windowData.colors.splitIndicator;
 
         // Check if there is a personal best
@@ -205,8 +218,14 @@ const moveToNextSplit = () => {
             // Get the offset between splits for auto scrolling
             const scrollTopOffset = nextSplit.offsetTop - windowData.currentSplit.offsetTop;
 
+            // Check if current split's order is even
+            if (windowData.currentSplit.value == "order=even") {
+                windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground2;
+            } else {
+                windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground;
+            }
+
             // Move current split indicator to the next split
-            windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground;
             windowData.currentSplit = nextSplit;
             nextSplit.style["background-color"] = windowData.colors.splitIndicator;
             // Increment by 1
@@ -283,8 +302,14 @@ document.getElementById("reset-button").addEventListener("click", () => {
         // Scroll split list to top
         splitList.scrollTo({ top: 0 });
 
+        // If current split's order is even
+        if (windowData.currentSplit.value == "order=even") {
+            windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground2;
+        } else {
+            windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground;
+        }
+
         // Move split indicator to the first split
-        windowData.currentSplit.style["background-color"] = windowData.colors.splitBackground;
         windowData.currentSplit = splitList.firstElementChild;
         windowData.currentSplit.style["background-color"] = windowData.colors.splitIndicator;
 
@@ -336,4 +361,3 @@ window.keyboardShortcuts.onKeyboardShortcut((event, message) => {
         moveToNextSplit();
     }
 })
-

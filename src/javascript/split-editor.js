@@ -10,8 +10,8 @@ let splitEditorWindowData = {
     selectedSplit: null,
     splitCount: 0,
     splitColors: {
-        selected: "rgb(160,160,160)",
-        notSelected: "rgb(240,240,240)",
+        selected: "rgb(130,130,130)",
+        notSelected: "rgb(80,80,80)",
     },
     splits: [],
 

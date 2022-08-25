@@ -9,7 +9,7 @@ class Timer {
         // Variables used by the timer
         this.startTime = 0;
         this.timeElapsed = 0;
-        this.timeCounter = undefined;
+        this.timeCounter = null;
         this.canReset = false;
         this.isRunning = false;
 
@@ -37,7 +37,7 @@ class Timer {
                 }
                 
                 // Use setInterval to start the timer
-                this.timeCounter = window.setInterval(countTime, 25);
+                this.timeCounter = window.setInterval(countTime, 17);   // Aim for about 60 updates per second (might vary, not always the same)
                 console.log("Timer started!");
             }
         }
