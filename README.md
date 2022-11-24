@@ -14,8 +14,4 @@ Application features:
 
 This application is made with Electron framework. It was mainly developed for my own use and learning purposes.
 
-No official release planned.
-
-# Build
-
-(To be updated)
+No official release planned for now.
